@@ -15,6 +15,7 @@
     }
   ],
   "require": {
+    "kdyby/translation": "dev-master"
   },
   "require-dev": {
     "nette/tester": "@dev"

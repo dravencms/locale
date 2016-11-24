@@ -16,4 +16,5 @@ Then you have to register extension in `config.neon`.
 ```yaml
 extensions:
 	locale: Dravencms\Locale\DI\LocaleExtension
+	translation: Kdyby\Translation\DI\TranslationExtension
 ```
