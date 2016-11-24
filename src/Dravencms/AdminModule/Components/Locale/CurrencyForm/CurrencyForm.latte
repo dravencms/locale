@@ -1,0 +1,51 @@
+<form n:name="form" class="panel form-horizontal">
+    <ul class="alert alert-danger" n:if="$form->hasErrors()">
+        <li n:foreach="$form->errors as $error">{$error}</li>
+    </ul>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group no-margin-hr">
+                    <label class="control-label" n:name="name">{_"Name"}</label>
+                    <input type="text" n:name="name" autofocus="autofocus" class="form-control">
+                </div>
+            </div><!-- col-sm-6 -->
+            <div class="col-sm-6">
+                <div class="form-group no-margin-hr">
+                    <label class="control-label" n:name="code">{_"Code"}</label>
+                    <input type="text" n:name="code" class="form-control">
+                </div>
+            </div><!-- col-sm-6 -->
+        </div><!-- row -->
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group no-margin-hr">
+                    <label class="control-label" n:name="sign">{_"Sign"}</label>
+                    <input type="text" n:name="sign" class="form-control">
+                </div>
+            </div><!-- col-sm-6 -->
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" n:name="isActive" class="px"> <span class="lbl">{_"Active"}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" n:name="isDefault" class="px"> <span class="lbl">{_"Default"}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <input type="submit" n:name="send" class="btn btn-success button" value="{_"Save"}">
+        </div>
+</form>

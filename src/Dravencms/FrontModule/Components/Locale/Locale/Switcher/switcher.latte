@@ -1,0 +1,16 @@
+<ul class="switchers">
+    <li>{$currentCurrency->getCode()|firstUpper}
+        <ul class="dropdown">
+            <li n:foreach="$currencies AS $currency">
+                <a href="{plink this, currency => $currency->getCode()}">{$currency->getCode()}</a>
+            </li>
+        </ul>
+    </li>
+    <li>{$currentLocale->getLanguageCode()|firstUpper}
+        <ul class="dropdown">
+            <li n:foreach="$locales AS $locale">
+                <a href="{plink this, locale => $locale->getLanguageCode()}">{$locale->getLanguageCode()|firstUpper}</a>
+            </li>
+        </ul>
+    </li>
+</ul>

@@ -1,0 +1,27 @@
+{
+  "name": "dravencms/locale",
+  "type": "library",
+  "description": "Locale module for dravencms",
+  "keywords": [
+    "dravencms",
+    "locale"
+  ],
+  "license": [
+    "LGPL-3.0"
+  ],
+  "authors": [
+    {
+      "name": "Adam Schubert"
+    }
+  ],
+  "require": {
+  },
+  "require-dev": {
+    "nette/tester": "@dev"
+  },
+  "autoload": {
+    "psr-0": {
+      "Dravencms\\": "src/"
+    }
+  }
+}

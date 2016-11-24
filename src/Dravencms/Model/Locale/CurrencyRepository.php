@@ -1,0 +1,201 @@
+<?php
+/**
+ * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
+ */
+
+namespace App\Model\Locale\Repository;
+
+
+use App\Model\Locale\Entities\Currency;
+use Kdyby\Doctrine\EntityManager;
+use Nette;
+use Tracy\Debugger;
+
+class CurrencyRepository
+{
+    /** @var \Kdyby\Doctrine\EntityRepository */
+    private $currencyRepository;
+
+    /** @var LocaleRepository */
+    private $localeRepository;
+
+    /** @var EntityManager */
+    private $entityManager;
+
+    /** @var Nette\Http\Request */
+    private $request;
+
+    private $currentCurrency;
+
+    /**
+     * CurrencyRepository constructor.
+     * @param EntityManager $entityManager
+     * @param Nette\Http\Request $request
+     * @param LocaleRepository $localeRepository
+     */
+    public function __construct(EntityManager $entityManager, Nette\Http\Request $request, LocaleRepository $localeRepository)
+    {
+        $this->entityManager = $entityManager;
+        $this->request = $request;
+        $this->currencyRepository = $entityManager->getRepository(Currency::class);
+        $this->localeRepository = $localeRepository;
+
+        $this->currentCurrency = $this->findCurrentCurrency();
+    }
+
+    /**
+     * @param $code
+     * @return mixed|null|Currency
+     */
+    public function getByCode($code)
+    {
+        return $this->currencyRepository->findOneBy(['code' => $code]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPairs()
+    {
+        return $this->currencyRepository->findPairs('name');
+    }
+
+    /**
+     * @param $id
+     * @return null|Currency
+     */
+    public function getOneById($id)
+    {
+        return $this->currencyRepository->find($id);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function getById($id)
+    {
+        return $this->currencyRepository->findBy(['id' => $id]);
+    }
+
+    /**
+     * @return \Kdyby\Doctrine\QueryBuilder
+     */
+    public function getCurrencyQueryBuilder()
+    {
+        $qb = $this->currencyRepository->createQueryBuilder('c')
+            ->select('c');
+        return $qb;
+    }
+
+    /**
+     * @param $name
+     * @param Currency|null $ignoreCurrency
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function isNameFree($name, Currency $ignoreCurrency = null)
+    {
+        $qb = $this->currencyRepository->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.name = :name')
+            ->setParameters([
+                'name' => $name
+            ]);
+
+        if ($ignoreCurrency)
+        {
+            $qb->andWhere('c != :ignoreCurrency')
+                ->setParameter('ignoreCurrency', $ignoreCurrency);
+        }
+
+        return (is_null($qb->getQuery()->getOneOrNullResult()));
+    }
+
+    /**
+     * @param $code
+     * @param Currency|null $ignoreCurrency
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function isCodeFree($code, Currency $ignoreCurrency = null)
+    {
+        $qb = $this->currencyRepository->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.code = :code')
+            ->setParameters([
+                'code' => $code
+            ]);
+
+        if ($ignoreCurrency)
+        {
+            $qb->andWhere('c != :ignoreCurrency')
+                ->setParameter('ignoreCurrency', $ignoreCurrency);
+        }
+
+        return (is_null($qb->getQuery()->getOneOrNullResult()));
+    }
+
+    /**
+     * @param $sign
+     * @param Currency|null $ignoreCurrency
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function isSignFree($sign, Currency $ignoreCurrency = null)
+    {
+        $qb = $this->currencyRepository->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.sign = :sign')
+            ->setParameters([
+                'sign' => $sign
+            ]);
+
+        if ($ignoreCurrency)
+        {
+            $qb->andWhere('c != :ignoreCurrency')
+                ->setParameter('ignoreCurrency', $ignoreCurrency);
+        }
+
+        return (is_null($qb->getQuery()->getOneOrNullResult()));
+    }
+
+    /**
+     * @return Currency|mixed|null
+     * @throws \Exception
+     */
+    private function findCurrentCurrency()
+    {
+        if ($currency = $this->request->getQuery('currency'))
+        {
+            if ($found = $found = $this->getByCode($currency))
+            {
+                return $found;
+            }
+        }
+
+        if ($found = $this->localeRepository->getCurrentLocale()->getCurrency()) {
+            return $found;
+        } else {
+            throw new \Exception('No default currency selected');
+        }
+    }
+
+    /**
+     * @return Currency|mixed|null
+     * @throws \Exception
+     */
+    public function getCurrentCurrency()
+    {
+        return $this->currentCurrency;
+    }
+
+    /**
+     * @param bool $isActive
+     * @return array
+     */
+    public function getActive($isActive = true)
+    {
+        return $this->currencyRepository->findBy(['isActive' => $isActive]);
+    }
+}
