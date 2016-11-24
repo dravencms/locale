@@ -2,8 +2,8 @@
 
 namespace Dravencms\Locale\Console;
 
-use App\Model\Admin\Entities\Menu;
-use App\Model\Admin\Repository\MenuRepository;
+use Dravencms\Model\Admin\Entities\Menu;
+use Dravencms\Model\Admin\Repository\MenuRepository;
 use Dravencms\Model\User\Entities\AclOperation;
 use Dravencms\Model\User\Entities\AclResource;
 use Kdyby\Doctrine\EntityManager;
@@ -26,7 +26,7 @@ class InstallCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var MenuRepository $adminMenuRepository */
-        $adminMenuRepository = $this->getHelper('container')->getByType('App\Model\Admin\Repository\MenuRepository');
+        $adminMenuRepository = $this->getHelper('container')->getByType('Dravencms\Model\Admin\Repository\MenuRepository');
 
         /** @var EntityManager $entityManager */
         $entityManager = $this->getHelper('container')->getByType('Kdyby\Doctrine\EntityManager');

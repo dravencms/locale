@@ -5,9 +5,9 @@
 
 namespace Dravencms\Latte\Locale\Filters;
 
+use Dravencms\Locale\Inflection\Czech;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
-use Classes\CzechLang;
 use Kdyby\Translation\Translator;
 
 /**
@@ -184,7 +184,7 @@ class Locale
         switch ($this->currentLocale->getLanguageCode())
         {
             case 'cs':
-                $cs = new CzechLang();
+                $cs = new Czech();
                 return $cs->Sklonuj($string)[5];
                 break;
 
