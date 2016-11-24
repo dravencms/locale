@@ -2,7 +2,7 @@
 
 namespace Dravencms\FrontModule\Components\Locale\Locale\Switcher;
 
-use Dravencms\Components\BaseControl;
+use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 

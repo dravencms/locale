@@ -21,7 +21,7 @@
 
 namespace Dravencms\AdminModule\Components\Locale\LocaleGrid;
 
-use Dravencms\Components\BaseGridFactory;
+use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;

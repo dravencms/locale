@@ -20,7 +20,7 @@
 
 namespace Dravencms\AdminModule\Components\Locale\LocaleForm;
 
-use Dravencms\Components\BaseFormFactory;
+use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;

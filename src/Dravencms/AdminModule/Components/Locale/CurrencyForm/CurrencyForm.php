@@ -20,7 +20,7 @@
 
 namespace Dravencms\AdminModule\Components\Locale\CurrencyForm;
 
-use Dravencms\Components\BaseFormFactory;
+use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Locale\Entities\Currency;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Kdyby\Doctrine\EntityManager;
