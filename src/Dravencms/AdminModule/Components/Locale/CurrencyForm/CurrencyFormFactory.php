@@ -17,10 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-namespace Dravencms\AdminModule\Components\Locale;
+namespace Dravencms\AdminModule\Components\Locale\CurrencyForm;
 
 
-use App\Model\Locale\Entities\Currency;
+use Dravencms\Model\Locale\Entities\Currency;
 
 interface CurrencyFormFactory
 {

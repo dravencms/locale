@@ -18,11 +18,11 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Locale;
+namespace Dravencms\AdminModule\Components\Locale\CurrencyForm;
 
 use Dravencms\Components\BaseFormFactory;
-use App\Model\Locale\Entities\Currency;
-use App\Model\Locale\Repository\CurrencyRepository;
+use Dravencms\Model\Locale\Entities\Currency;
+use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;

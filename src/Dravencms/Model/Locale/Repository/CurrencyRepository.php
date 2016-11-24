@@ -3,13 +3,12 @@
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
 
-namespace App\Model\Locale\Repository;
+namespace Dravencms\Model\Locale\Repository;
 
 
-use App\Model\Locale\Entities\Currency;
+use Dravencms\Model\Locale\Entities\Currency;
 use Kdyby\Doctrine\EntityManager;
 use Nette;
-use Tracy\Debugger;
 
 class CurrencyRepository
 {

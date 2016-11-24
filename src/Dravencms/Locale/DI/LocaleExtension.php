@@ -23,6 +23,10 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         $builder->addDefinition($this->prefix('locale'))
             ->setClass('Dravencms\Locale\Locale', []);
 
+        $builder->addDefinition($this->prefix('filters'))
+            ->setClass('Dravencms\Latte\Locale\Filters\Locale')
+            ->setInject(FALSE);
+
         $this->loadCmsComponents();
         $this->loadComponents();
         $this->loadModels();
@@ -39,6 +43,43 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         $config->onCompile[] = function (Configurator $config, Compiler $compiler) use ($extensionName) {
             $compiler->addExtension($extensionName, new LocaleExtension());
         };
+    }
+
+    public function beforeCompile()
+    {
+        $builder = $this->getContainerBuilder();
+        $registerToLatte = function (Nette\DI\ServiceDefinition $def) {
+            //$def->addSetup('?->onCompile[] = function($engine) { Salamek\Cms\Macros\Latte::install($engine->getCompiler()); }', ['@self']);
+
+            $def->addSetup('addFilter', ['formatNumber', [$this->prefix('@filters'), 'formatNumber']]);
+            $def->addSetup('addFilter', ['formatPrice', [$this->prefix('@filters'), 'formatPrice']]);
+            $def->addSetup('addFilter', ['formatDateRange', [$this->prefix('@filters'), 'formatDateRange']]);
+            $def->addSetup('addFilter', ['dateStringToDateTime', [$this->prefix('@filters'), 'dateStringToDateTime']]);
+            $def->addSetup('addFilter', ['dateTimeToDateString', [$this->prefix('@filters'), 'dateTimeToDateString']]);
+            $def->addSetup('addFilter', ['localeFormatToJsFormat', [$this->prefix('@filters'), 'localeFormatToJsFormat']]);
+            $def->addSetup('addFilter', ['inflection', [$this->prefix('@filters'), 'inflection']]);
+
+            /*if (method_exists('Latte\Engine', 'addProvider')) { // Nette 2.4
+                $def->addSetup('addProvider', ['cms', $this->prefix('@cms')])
+                    ->addSetup('addFilter', ['cmsLink', [$this->prefix('@helpers'), 'cmsLinkFilterAware']]);
+            } else {
+                $def->addSetup('addFilter', ['getCms', [$this->prefix('@helpers'), 'getCms']])
+                    ->addSetup('addFilter', ['cmsLink', [$this->prefix('@helpers'), 'cmsLink']]);
+            }*/
+        };
+
+        $latteFactoryService = $builder->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory');
+        if (!$latteFactoryService || !self::isOfType($builder->getDefinition($latteFactoryService)->getClass(), 'Latte\engine')) {
+            $latteFactoryService = 'nette.latteFactory';
+        }
+
+        if ($builder->hasDefinition($latteFactoryService) && self::isOfType($builder->getDefinition($latteFactoryService)->getClass(), 'Latte\Engine')) {
+            $registerToLatte($builder->getDefinition($latteFactoryService));
+        }
+
+        if ($builder->hasDefinition('nette.latte')) {
+            $registerToLatte($builder->getDefinition('nette.latte'));
+        }
     }
 
 
@@ -112,5 +153,15 @@ class LocaleExtension extends Nette\DI\CompilerExtension
                 throw new \InvalidArgumentException;
             }
         }
+    }
+
+    /**
+     * @param string $class
+     * @param string $type
+     * @return bool
+     */
+    private static function isOfType($class, $type)
+    {
+        return $class === $type || is_subclass_of($class, $type);
     }
 }

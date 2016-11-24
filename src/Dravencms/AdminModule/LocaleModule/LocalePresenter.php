@@ -8,12 +8,12 @@
 namespace Dravencms\AdminModule\LocaleModule;
 
 
-use Dravencms\AdminModule\Components\Locale\LocaleFormFactory;
-use Dravencms\AdminModule\Components\Locale\LocaleGridFactory;
+use Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleFormFactory;
+use Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
-use App\Model\Locale\Entities\Locale;
-use App\Model\Locale\Repository\CurrencyRepository;
-use App\Model\Locale\Repository\LocaleRepository;
+use Dravencms\Model\Locale\Entities\Locale;
+use Dravencms\Model\Locale\Repository\CurrencyRepository;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 
 /**
  * Description of LocalePresenter

@@ -18,12 +18,12 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Locale;
+namespace Dravencms\AdminModule\Components\Locale\LocaleForm;
 
 use Dravencms\Components\BaseFormFactory;
-use App\Model\Locale\Entities\Locale;
-use App\Model\Locale\Repository\CurrencyRepository;
-use App\Model\Locale\Repository\LocaleRepository;
+use Dravencms\Model\Locale\Entities\Locale;
+use Dravencms\Model\Locale\Repository\CurrencyRepository;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 use App\Model\User\Repository\CountryRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;

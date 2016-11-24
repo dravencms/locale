@@ -19,10 +19,10 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Locale;
+namespace Dravencms\AdminModule\Components\Locale\CurrencyGrid;
 
 use Dravencms\Components\BaseGridFactory;
-use App\Model\Locale\Repository\CurrencyRepository;
+use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 

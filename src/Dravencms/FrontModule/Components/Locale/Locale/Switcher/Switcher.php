@@ -1,10 +1,10 @@
 <?php
 
-namespace Dravencms\FrontModule\Components\Locale\Locale;
+namespace Dravencms\FrontModule\Components\Locale\Locale\Switcher;
 
 use Dravencms\Components\BaseControl;
-use App\Model\Locale\Repository\CurrencyRepository;
-use App\Model\Locale\Repository\LocaleRepository;
+use Dravencms\Model\Locale\Repository\CurrencyRepository;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 
 class Switcher extends BaseControl
 {

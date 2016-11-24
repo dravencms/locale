@@ -42,8 +42,23 @@ class InstallCommand extends Command
             $aclOperationDelete = new AclOperation($aclResource, 'delete', 'Allows deletion of Locale');
             $entityManager->persist($aclOperationDelete);
 
-            $adminMenuRoot = new Menu('Issues', ':Admin:Issue:Issue', 'fa-bug', $aclOperationEdit);
-            $entityManager->persist($adminMenuRoot);
+            $aclOperationCurrencyEdit = new AclOperation($aclResource, 'currencyEdit', 'Allows editation of Currency');
+            $entityManager->persist($aclOperationCurrencyEdit);
+            $aclOperationCurrencyDelete = new AclOperation($aclResource, 'currencyDelete', 'Allows deletion of Currency');
+            $entityManager->persist($aclOperationCurrencyDelete);
+
+            $configurationMenu = $adminMenuRepository->getOneByName('Configuration');
+            if (!$configurationMenu)
+            {
+                $configurationMenu = new Menu('Configuration', null, 'fa-cog');
+                $entityManager->persist($configurationMenu);
+            }
+            
+            $adminMenu = new Menu('Locale', ':Admin:Locale:Locale', 'fa-language', $aclOperationEdit);
+            $adminMenuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $configurationMenu);
+
+            $adminMenu = new Menu('Currency', ':Admin:Locale:Currency', 'fa-usd', $aclOperationCurrencyEdit);
+            $adminMenuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $configurationMenu);
 
             $output->writeLn('Module installed successfully');
             return 0; // zero return code means everything is ok

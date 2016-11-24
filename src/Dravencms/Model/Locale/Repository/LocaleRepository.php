@@ -3,16 +3,15 @@
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
 
-namespace App\Model\Locale\Repository;
+namespace Dravencms\Model\Locale\Repository;
 
-use App\Model\Locale\Entities\Locale;
+use Dravencms\Model\Locale\Entities\Locale;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Translation\Translator;
 use Nette;
 use Salamek\Cms\ICmsComponentRepository;
 use Salamek\Cms\Models\ILocale;
 use Salamek\Cms\Models\ILocaleRepository;
-use Tracy\Debugger;
 
 class LocaleRepository implements ICmsComponentRepository, ILocaleRepository
 {

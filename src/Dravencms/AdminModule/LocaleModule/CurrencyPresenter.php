@@ -8,11 +8,11 @@
 namespace Dravencms\AdminModule\LocaleModule;
 
 
-use Dravencms\AdminModule\Components\Locale\CurrencyFormFactory;
-use Dravencms\AdminModule\Components\Locale\CurrencyGridFactory;
+use Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyFormFactory;
+use Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
-use App\Model\Locale\Entities\Currency;
-use App\Model\Locale\Repository\CurrencyRepository;
+use Dravencms\Model\Locale\Entities\Currency;
+use Dravencms\Model\Locale\Repository\CurrencyRepository;
 
 /**
  * Description of CurrencyPresenter

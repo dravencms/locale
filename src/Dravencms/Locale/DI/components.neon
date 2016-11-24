@@ -1,0 +1,4 @@
+- Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGridFactory
+- Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleFormFactory
+- Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGridFactory
+- Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyFormFactory

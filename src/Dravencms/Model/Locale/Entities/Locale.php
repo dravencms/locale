@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace App\Model\Locale\Entities;
+namespace Dravencms\Model\Locale\Entities;
 
 use App\Model\User\Entities\Country;
 use App\Model\User\Entities\User;

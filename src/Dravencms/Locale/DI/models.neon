@@ -1,0 +1,2 @@
+- Dravencms\Model\Locale\Repository\LocaleRepository
+- Dravencms\Model\Locale\Repository\CurrencyRepository
