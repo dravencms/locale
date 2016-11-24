@@ -16,7 +16,7 @@
   ],
   "require": {
     "kdyby/translation": "dev-master",
-    "dravencms/locale": "@dev"
+    "dravencms/user": "@dev"
   },
   "require-dev": {
     "nette/tester": "@dev"
