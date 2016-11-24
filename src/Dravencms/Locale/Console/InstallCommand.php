@@ -4,8 +4,8 @@ namespace Dravencms\Locale\Console;
 
 use App\Model\Admin\Entities\Menu;
 use App\Model\Admin\Repository\MenuRepository;
-use App\Model\User\Entities\AclOperation;
-use App\Model\User\Entities\AclResource;
+use Dravencms\Model\User\Entities\AclOperation;
+use Dravencms\Model\User\Entities\AclResource;
 use Kdyby\Doctrine\EntityManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
