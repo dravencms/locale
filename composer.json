@@ -1,6 +1,6 @@
 {
   "name": "dravencms/locale",
-  "type": "library",
+  "type": "dravencms-package",
   "description": "Locale module for dravencms",
   "keywords": [
     "dravencms",
@@ -24,6 +24,19 @@
   "autoload": {
     "psr-0": {
       "Dravencms\\": "src/"
+    }
+  }
+  "extra": {
+    "dravencms": {
+      "configuration": {
+        "extensions": {
+          "timeline": "Dravencms\\Locale\\DI\\LocaleExtension"
+        }
+      },
+      "scripts": {
+        "post-install": "Dravencms\\Locale\\Script\\PostInstall",
+        "pre-uninstall": "Dravencms\\Locale\\Script\\PreUninstall"
+      }
     }
   }
 }
