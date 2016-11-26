@@ -11,16 +11,27 @@ use Kdyby\Doctrine\EntityManager;
  */
 class PreUninstall implements IScript
 {
+    /** @var AclResourceRepository */
     private $aclResourceRepository;
 
+    /** @var EntityManager */
     private $entityManager;
 
+    /**
+     * PreUninstall constructor.
+     * @param EntityManager $entityManager
+     * @param AclResourceRepository $aclResourceRepository
+     */
     public function __construct(EntityManager $entityManager, AclResourceRepository $aclResourceRepository)
     {
         $this->entityManager = $entityManager;
         $this->aclResourceRepository = $aclResourceRepository;
     }
 
+    /**
+     * @param IPackage $package
+     * @throws \Exception
+     */
     public function run(IPackage $package)
     {
         $aclResource = $this->aclResourceRepository->getOneByName('locale');

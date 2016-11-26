@@ -6,6 +6,8 @@ use Dravencms\Model\Admin\Entities\Menu;
 use Dravencms\Model\Admin\Repository\MenuRepository;
 use Dravencms\Model\User\Entities\AclOperation;
 use Dravencms\Model\User\Entities\AclResource;
+use Dravencms\Model\User\Repository\AclOperationRepository;
+use Dravencms\Model\User\Repository\AclResourceRepository;
 use Dravencms\Packager\IPackage;
 use Dravencms\Packager\IScript;
 use Kdyby\Doctrine\EntityManager;
@@ -15,30 +17,64 @@ use Kdyby\Doctrine\EntityManager;
  */
 class PostInstall implements IScript
 {
+    /** @var MenuRepository */
     private $menuRepository;
+
+    /** @var EntityManager */
     private $entityManager;
 
-    public function __construct(MenuRepository $menuRepository, EntityManager $entityManager)
+    /** @var AclResourceRepository */
+    private $aclResourceRepository;
+
+    /** @var AclOperationRepository */
+    private $aclOperationRepository;
+
+    /**
+     * PostInstall constructor.
+     * @param MenuRepository $menuRepository
+     * @param EntityManager $entityManager
+     * @param AclResourceRepository $aclResourceRepository
+     * @param AclOperationRepository $aclOperationRepository
+     */
+    public function __construct(MenuRepository $menuRepository, EntityManager $entityManager, AclResourceRepository $aclResourceRepository, AclOperationRepository $aclOperationRepository)
     {
         $this->menuRepository = $menuRepository;
         $this->entityManager = $entityManager;
+        $this->aclResourceRepository = $aclResourceRepository;
+        $this->aclOperationRepository = $aclOperationRepository;
     }
 
+    /**
+     * @param IPackage $package
+     * @throws \Exception
+     */
     public function run(IPackage $package)
     {
-        $aclResource = new AclResource('locale', 'Issue');
+        if (!$aclResource = $this->aclResourceRepository->getOneByName('locale')) {
+            $aclResource = new AclResource('locale', 'Issue');
 
-        $this->entityManager->persist($aclResource);
+            $this->entityManager->persist($aclResource);
+        }
 
-        $aclOperationEdit = new AclOperation($aclResource, 'edit', 'Allows editation of Locale');
-        $this->entityManager->persist($aclOperationEdit);
-        $aclOperationDelete = new AclOperation($aclResource, 'delete', 'Allows deletion of Locale');
-        $this->entityManager->persist($aclOperationDelete);
+        if (!$aclOperationEdit = $this->aclOperationRepository->getOneByName('edit')) {
+            $aclOperationEdit = new AclOperation($aclResource, 'edit', 'Allows editation of Locale');
+            $this->entityManager->persist($aclOperationEdit);
+        }
 
-        $aclOperationCurrencyEdit = new AclOperation($aclResource, 'currencyEdit', 'Allows editation of Currency');
-        $this->entityManager->persist($aclOperationCurrencyEdit);
-        $aclOperationCurrencyDelete = new AclOperation($aclResource, 'currencyDelete', 'Allows deletion of Currency');
-        $this->entityManager->persist($aclOperationCurrencyDelete);
+        if (!$aclOperationDelete = $this->aclOperationRepository->getOneByName('delete')) {
+            $aclOperationDelete = new AclOperation($aclResource, 'delete', 'Allows deletion of Locale');
+            $this->entityManager->persist($aclOperationDelete);
+        }
+
+        if (!$aclOperationCurrencyEdit = $this->aclOperationRepository->getOneByName('currencyEdit')) {
+            $aclOperationCurrencyEdit = new AclOperation($aclResource, 'currencyEdit', 'Allows editation of Currency');
+            $this->entityManager->persist($aclOperationCurrencyEdit);
+        }
+
+        if (!$aclOperationCurrencyDelete = $this->aclOperationRepository->getOneByName('currencyDelete')) {
+            $aclOperationCurrencyDelete = new AclOperation($aclResource, 'currencyDelete', 'Allows deletion of Currency');
+            $this->entityManager->persist($aclOperationCurrencyDelete);
+        }
 
         $configurationMenu = $this->menuRepository->getOneByName('Configuration');
         if (!$configurationMenu)
@@ -47,11 +83,16 @@ class PostInstall implements IScript
             $this->entityManager->persist($configurationMenu);
         }
 
-        $adminMenu = new Menu('Locale', ':Admin:Locale:Locale', 'fa-language', $aclOperationEdit);
-        $this->menuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $configurationMenu);
+        if (!$this->menuRepository->getOneByPresenter(':Admin:Locale:Locale')) {
+            $adminMenu = new Menu('Locale', ':Admin:Locale:Locale', 'fa-language', $aclOperationEdit);
+            $this->menuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $configurationMenu);
+        }
 
-        $adminMenu = new Menu('Currency', ':Admin:Locale:Currency', 'fa-usd', $aclOperationCurrencyEdit);
-        $this->menuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $configurationMenu);
+        if (!$this->menuRepository->getOneByPresenter(':Admin:Locale:Currency')) {
+            $adminMenu = new Menu('Currency', ':Admin:Locale:Currency', 'fa-usd', $aclOperationCurrencyEdit);
+            $this->menuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $configurationMenu);
+        }
 
+        $this->entityManager->flush();
     }
 }
