@@ -30,7 +30,8 @@
     "dravencms": {
       "configuration": {
         "extensions": {
-          "locale": "Dravencms\\Locale\\DI\\LocaleExtension"
+          "locale": "Dravencms\\Locale\\DI\\LocaleExtension",
+          "translation": "Kdyby\\Translation\\DI\\TranslationExtension"
         }
       },
       "scripts": {
