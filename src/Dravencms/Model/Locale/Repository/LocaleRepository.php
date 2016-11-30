@@ -9,11 +9,10 @@ use Dravencms\Model\Locale\Entities\Locale;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Translation\Translator;
 use Nette;
-use Salamek\Cms\ICmsComponentRepository;
 use Salamek\Cms\Models\ILocale;
 use Salamek\Cms\Models\ILocaleRepository;
 
-class LocaleRepository implements ICmsComponentRepository, ILocaleRepository
+class LocaleRepository implements ILocaleRepository
 {
     /** @var \Kdyby\Doctrine\EntityRepository */
     private $localeRepository;
@@ -236,21 +235,5 @@ class LocaleRepository implements ICmsComponentRepository, ILocaleRepository
                 ->getQuery()
                 ->execute();
         }
-    }
-
-    /**
-     * @param string $componentAction
-     * @param array $parameters
-     * @param ILocale $locale
-     * @return void
-     */
-    public function getActionOption($componentAction, array $parameters, ILocale $locale)
-    {
-        // TODO: Implement getActionOption() method.
-    }
-
-    public function getActionOptions($componentAction)
-    {
-        // TODO: Implement getActionOptions() method.
     }
 }

@@ -2,3 +2,4 @@
 - Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleFormFactory
 - Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGridFactory
 - Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyFormFactory
+- Dravencms\FrontModule\Components\Locale\Locale\Switcher\SwitcherFactory

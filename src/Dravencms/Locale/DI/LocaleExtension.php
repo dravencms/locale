@@ -6,7 +6,6 @@ use Kdyby\Console\DI\ConsoleExtension;
 use Nette;
 use Nette\DI\Compiler;
 use Nette\DI\Configurator;
-use Salamek\Cms\DI\CmsExtension;
 /**
  * Class LocaleExtension
  * @package Dravencms\Locale\DI
@@ -92,21 +91,6 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         ];
 
         return parent::getConfig($defaults, $expand);
-    }
-
-    protected function loadCmsComponents()
-    {
-        $builder = $this->getContainerBuilder();
-        foreach ($this->loadFromFile(__DIR__ . '/cmsComponents.neon') as $i => $command) {
-            $cli = $builder->addDefinition($this->prefix('cmsComponent.' . $i))
-                ->addTag(CmsExtension::TAG_COMPONENT)
-                ->setInject(FALSE); // lazy injects
-            if (is_string($command)) {
-                $cli->setImplement($command);
-            } else {
-                throw new \InvalidArgumentException;
-            }
-        }
     }
 
     protected function loadComponents()
