@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "kdyby/translation": "dev-master",
+    "dravencms-translation": "@dev",
     "dravencms/user": "@dev"
   },
   "require-dev": {
@@ -30,8 +30,7 @@
     "dravencms": {
       "configuration": {
         "extensions": {
-          "locale": "Dravencms\\Locale\\DI\\LocaleExtension",
-          "translation": "Kdyby\\Translation\\DI\\TranslationExtension"
+          "locale": "Dravencms\\Locale\\DI\\LocaleExtension"
         }
       },
       "scripts": {
