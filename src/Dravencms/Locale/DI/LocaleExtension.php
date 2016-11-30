@@ -26,7 +26,6 @@ class LocaleExtension extends Nette\DI\CompilerExtension
             ->setClass('Dravencms\Latte\Locale\Filters\Locale')
             ->setInject(FALSE);
 
-        $this->loadCmsComponents();
         $this->loadComponents();
         $this->loadModels();
         $this->loadConsole();
