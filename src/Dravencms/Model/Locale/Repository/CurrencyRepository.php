@@ -24,6 +24,7 @@ class CurrencyRepository
     /** @var Nette\Http\Request */
     private $request;
 
+    /** @var Currency|mixed|null */
     private $currentCurrency;
 
     /**

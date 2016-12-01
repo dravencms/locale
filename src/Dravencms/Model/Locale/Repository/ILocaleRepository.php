@@ -5,6 +5,7 @@
 
 namespace Dravencms\Model\Locale\Repository;
 
+use Dravencms\Model\Locale\Entities\ILocale;
 
 interface ILocaleRepository
 {
