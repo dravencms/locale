@@ -9,8 +9,6 @@ use Dravencms\Model\Locale\Entities\Locale;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Translation\Translator;
 use Nette;
-use Salamek\Cms\Models\ILocale;
-use Salamek\Cms\Models\ILocaleRepository;
 
 class LocaleRepository implements ILocaleRepository
 {

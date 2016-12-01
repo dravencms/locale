@@ -6,14 +6,12 @@
  */
 namespace Dravencms\Model\Locale\Entities;
 
-use Dravencms\Model\User\Entities\Country;
-use Dravencms\Model\User\Entities\User;
+use Dravencms\Model\Location\Entities\Country;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Nette;
-use Salamek\Cms\Models\ILocale;
 
 /**
  * Class Locale
@@ -88,14 +86,8 @@ class Locale extends Nette\Object implements ILocale
     private $currency;
 
     /**
-     * @var ArrayCollection|User[]
-     * @ORM\OneToMany(targetEntity="\Dravencms\Model\User\Entities\User", mappedBy="locale",cascade={"persist"})
-     */
-    private $users;
-
-    /**
      * @var Country
-     * @ORM\ManyToOne(targetEntity="Dravencms\Model\User\Entities\Country", inversedBy="locales")
+     * @ORM\ManyToOne(targetEntity="Dravencms\Model\Location\Entities\Country", inversedBy="locales")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
     private $country;
@@ -313,14 +305,6 @@ class Locale extends Nette\Object implements ILocale
     public function isActive()
     {
         return $this->isActive;
-    }
-
-    /**
-     * @return \Dravencms\Model\User\Entities\User[]|ArrayCollection
-     */
-    public function getUsers()
-    {
-        return $this->users;
     }
 
     /**
