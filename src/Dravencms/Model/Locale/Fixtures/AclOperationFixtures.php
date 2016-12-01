@@ -23,10 +23,12 @@ class AclOperationFixtures extends AbstractFixture implements DependentFixtureIn
         $operations = [
             'locale' => [
                 'edit' => 'Umožnuje editaci locale',
-                'delete' => 'Umožnuje smazání locale'
+                'delete' => 'Umožnuje smazání locale',
+                'currencyEdit' => 'Umožnuje editaci currency',
+                'currencyDelete' => 'Umožnuje smazání currency'
             ]
         ];
-        
+
         foreach ($operations AS $resourceName => $operationList)
         {
             /** @var AclResource $aclResource */
