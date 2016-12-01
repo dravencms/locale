@@ -15,7 +15,9 @@
     }
   ],
   "require": {
-    "dravencms/translation": "@dev"
+    "dravencms/translation": "@dev",
+    "dravencms/location": "@dev",
+    "umpirsky/currency-list": "^1.0"
   },
   "require-dev": {
     "nette/tester": "@dev"
