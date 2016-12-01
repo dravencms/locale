@@ -33,6 +33,6 @@ class LocaleFixtures extends AbstractFixture implements DependentFixtureInterfac
      */
     public function getDependencies()
     {
-        return ['Dravencms\Model\Locale\Fixtures\CurrencyFixtures'];
+        return ['Dravencms\Model\Locale\Fixtures\CurrencyFixtures', 'Dravencms\Model\Location\Fixtures\CountryFixtures'];
     }
 }

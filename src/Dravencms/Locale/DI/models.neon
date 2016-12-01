@@ -4,3 +4,5 @@
 - Dravencms\Model\Locale\Fixtures\AclResourceFixtures
 - Dravencms\Model\Locale\Fixtures\AclOperationFixtures
 - Dravencms\Model\Locale\Fixtures\AdminMenuFixtures
+- Dravencms\Model\Locale\Fixtures\LocaleFixtures
+- Dravencms\Model\Locale\Fixtures\CurrencyFixtures
