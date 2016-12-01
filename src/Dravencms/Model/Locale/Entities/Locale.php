@@ -87,7 +87,7 @@ class Locale extends Nette\Object implements ILocale
 
     /**
      * @var Country
-     * @ORM\ManyToOne(targetEntity="Dravencms\Model\Location\Entities\Country", inversedBy="locales")
+     * @ORM\ManyToOne(targetEntity="Dravencms\Model\Location\Entities\Country")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
     private $country;
