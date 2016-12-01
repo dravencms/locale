@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "dravencms-translation": "@dev",
+    "dravencms/translation": "@dev",
     "dravencms/user": "@dev"
   },
   "require-dev": {
