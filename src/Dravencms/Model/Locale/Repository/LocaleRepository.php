@@ -65,7 +65,7 @@ class LocaleRepository implements ILocaleRepository
      * @param $languageCode
      * @return mixed|null|Locale
      */
-    public function getByLanguageCode($languageCode)
+    public function getOneByLanguageCode($languageCode)
     {
         return $this->localeRepository->findOneBy(['languageCode' => $languageCode]);
     }
@@ -171,7 +171,7 @@ class LocaleRepository implements ILocaleRepository
         }*/
 
         // Set current locale model
-        if ($found = $this->getByLanguageCode($this->translator->getLocale())) {
+        if ($found = $this->getOneByLanguageCode($this->translator->getLocale())) {
             return $found;
         } else {
             //Not found

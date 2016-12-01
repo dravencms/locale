@@ -5,7 +5,7 @@ namespace Dravencms\Locale;
 use Doctrine\ORM\Query;
 use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
 use Gedmo\Translatable\TranslatableListener;
-use Salamek\Cms\Models\ILocale;
+use Dravencms\Model\Locale\Entities\ILocale;
 
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
