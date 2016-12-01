@@ -24,7 +24,7 @@ use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
-use Dravencms\Model\User\Repository\CountryRepository;
+use Dravencms\Model\Location\Repository\CountryRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
