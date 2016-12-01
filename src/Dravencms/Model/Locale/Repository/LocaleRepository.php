@@ -160,7 +160,7 @@ class LocaleRepository implements ILocaleRepository
      */
     private function findCurrentLocale()
     {
-        $user = $this->user->getIdentity();
+        /*$user = $this->user->getIdentity();
         if ($user)
         {
             $userLocale = $user->getLocale();
@@ -168,7 +168,7 @@ class LocaleRepository implements ILocaleRepository
             {
                 $this->translator->setLocale($userLocale->getLanguageCode());
             }
-        }
+        }*/
 
         // Set current locale model
         if ($found = $this->getByLanguageCode($this->translator->getLocale())) {
