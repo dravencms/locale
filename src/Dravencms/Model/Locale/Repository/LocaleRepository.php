@@ -5,6 +5,7 @@
 
 namespace Dravencms\Model\Locale\Repository;
 
+use Dravencms\Model\Locale\Entities\ILocale;
 use Dravencms\Model\Locale\Entities\Locale;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Translation\Translator;
@@ -21,13 +22,11 @@ class LocaleRepository implements ILocaleRepository
     /** @var Translator */
     private $translator;
 
-    /**
-     * @var Nette\Security\User
-     */
+    /** @var Nette\Security\User */
     private $user;
 
-
-    private $currentLocale;
+    /** @var ILocale|null */
+    private $currentLocale = null;
 
     /**
      * LocaleRepository constructor.
@@ -41,8 +40,6 @@ class LocaleRepository implements ILocaleRepository
         $this->translator = $translator;
         $this->user = $user;
         $this->localeRepository = $entityManager->getRepository(Locale::class);
-
-        $this->currentLocale = $this->findCurrentLocale();
     }
 
     /**
@@ -189,6 +186,11 @@ class LocaleRepository implements ILocaleRepository
      */
     public function getCurrentLocale()
     {
+        if (is_null($this->currentLocale))
+        {
+            $this->currentLocale = $this->findCurrentLocale();
+        }
+
         return $this->currentLocale;
     }
 
