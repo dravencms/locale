@@ -1,6 +1,7 @@
 <?php
 
 namespace Dravencms\Locale;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 
 
 /**
@@ -9,7 +10,18 @@ namespace Dravencms\Locale;
  */
 class Locale extends \Nette\Object
 {
-    public function __construct()
+    private $localeRepository;
+    
+    
+    public function __construct(
+        LocaleRepository $localeRepository
+    )
     {
+        $this->localeRepository = $localeRepository;
+    }
+    
+    public function getCurrentLocale()
+    {
+        
     }
 }
