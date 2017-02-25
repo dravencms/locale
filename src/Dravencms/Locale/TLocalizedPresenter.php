@@ -36,7 +36,7 @@ trait TLocalizedPresenter
             {
                 $gedmoTranslatable->setDefaultLocale($localeLocaleRepository->getDefault()->getLanguageCode());
                 $gedmoTranslatable->setTranslationFallback(true);
-                $gedmoTranslatable->setTranslatableLocale($localeLocaleRepository->getCurrentLocale()->getLanguageCode());
+                //$gedmoTranslatable->setTranslatableLocale($localeLocaleRepository->getCurrentLocale()->getLanguageCode());
             }
         }
 

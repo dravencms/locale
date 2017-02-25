@@ -411,7 +411,6 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         }
     }
 
-
     protected function loadLocaleResolver(array $config)
     {
         $builder = $this->getContainerBuilder();
