@@ -82,6 +82,14 @@ class CurrentLocale extends \Nette\Object implements ILocale
     }
 
     /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->getCurrentLocale()->getId();
+    }
+
+    /**
      * @return string
      * @throws \Exception
      */
@@ -153,5 +161,13 @@ class CurrentLocale extends \Nette\Object implements ILocale
     public function getThousandsSep()
     {
         return $this->getCurrentLocale()->getThousandsSep();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getCurrentLocale()->getId();
     }
 }

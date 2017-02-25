@@ -12,6 +12,11 @@ namespace Dravencms\Model\Locale\Entities;
 interface ILocale
 {
     /**
+     * @return integer
+     */
+    public function getId();
+
+    /**
      * @return Currency
      */
     public function getCurrency();
