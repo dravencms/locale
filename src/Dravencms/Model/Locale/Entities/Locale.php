@@ -314,4 +314,12 @@ class Locale extends Nette\Object implements ILocale
     {
         return $this->country;
     }
+
+    /**
+     * @return string
+     */
+    public function getDateTimeFormat()
+    {
+        return $this->getDateFormat().' '.$this->getTimeFormat();
+    }
 }

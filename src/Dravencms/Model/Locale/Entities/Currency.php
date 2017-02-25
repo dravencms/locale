@@ -18,7 +18,7 @@ use Kdyby\Doctrine\Entities\Attributes\Identifier;
  * @ORM\Entity
  * @ORM\Table(name="localeCurrency")
  */
-class Currency extends Nette\Object
+class Currency extends Nette\Object implements ICurrency
 {
     use Identifier;
     use TimestampableEntity;

@@ -11,7 +11,7 @@ use Kdyby\Doctrine\EntityManager;
 use Kdyby\Translation\Translator;
 use Nette;
 
-class LocaleRepository implements ILocaleRepository
+class LocaleRepository
 {
     /** @var \Kdyby\Doctrine\EntityRepository */
     private $localeRepository;
@@ -19,26 +19,14 @@ class LocaleRepository implements ILocaleRepository
     /** @var EntityManager */
     private $entityManager;
 
-    /** @var Translator */
-    private $translator;
-
-    /** @var Nette\Security\User */
-    private $user;
-
-    /** @var ILocale|null */
-    private $currentLocale = null;
-
     /**
      * LocaleRepository constructor.
      * @param EntityManager $entityManager
-     * @param Translator $translator
-     * @param Nette\Security\User $user
      */
-    public function __construct(EntityManager $entityManager, Translator $translator, Nette\Security\User $user)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
-        $this->user = $user;
+
         $this->localeRepository = $entityManager->getRepository(Locale::class);
     }
 
@@ -149,75 +137,6 @@ class LocaleRepository implements ILocaleRepository
         }
 
         return (is_null($qb->getQuery()->getOneOrNullResult()));
-    }
-
-    /**
-     * @return Locale|mixed|null
-     * @throws \Exception
-     */
-    private function findCurrentLocale()
-    {
-        /*$user = $this->user->getIdentity();
-        if ($user)
-        {
-            $userLocale = $user->getLocale();
-            if ($userLocale)
-            {
-                $this->translator->setLocale($userLocale->getLanguageCode());
-            }
-        }*/
-
-        // Set current locale model
-        if ($found = $this->getOneByLanguageCode($this->translator->getLocale())) {
-            return $found;
-        } else {
-            //Not found
-            if ($found = $this->getDefault()) {
-                return $found;
-            } else {
-                throw new \Exception('No default locale selected');
-            }
-        }
-    }
-
-    /**
-     * @return Locale|mixed|null
-     * @throws \Exception
-     */
-    public function getCurrentLocale()
-    {
-        if (is_null($this->currentLocale))
-        {
-            $this->currentLocale = $this->findCurrentLocale();
-        }
-
-        return $this->currentLocale;
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function getLocalizedDateFormat()
-    {
-        return $this->currentLocale->getDateFormat();
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function getLocalizedTimeFormat()
-    {
-        return $this->currentLocale->getTimeFormat();
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocalizedDateTimeFormat()
-    {
-        return $this->getLocalizedDateFormat().' '.$this->getLocalizedTimeFormat();
     }
 
     /**

@@ -65,8 +65,11 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         $builder = $this->getContainerBuilder();
 
 
-        $builder->addDefinition($this->prefix('locale'))
-            ->setClass('Dravencms\Locale\Locale', []);
+        $builder->addDefinition($this->prefix('currentLocale'))
+            ->setClass('Dravencms\Locale\CurrentLocale', []);
+
+        $builder->addDefinition($this->prefix('currentCurrency'))
+            ->setClass('Dravencms\Locale\CurrentCurrency', []);
 
         $builder->addDefinition($this->prefix('filters'))
             ->setClass('Dravencms\Latte\Locale\Filters\Locale')

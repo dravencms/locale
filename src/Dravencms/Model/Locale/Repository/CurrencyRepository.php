@@ -21,8 +21,6 @@ class CurrencyRepository
     /** @var EntityManager */
     private $entityManager;
 
-    /** @var Nette\Http\Request */
-    private $request;
 
     /** @var Currency|mixed|null */
     private $currentCurrency;
@@ -30,13 +28,11 @@ class CurrencyRepository
     /**
      * CurrencyRepository constructor.
      * @param EntityManager $entityManager
-     * @param Nette\Http\Request $request
      * @param LocaleRepository $localeRepository
      */
-    public function __construct(EntityManager $entityManager, Nette\Http\Request $request, LocaleRepository $localeRepository)
+    public function __construct(EntityManager $entityManager, LocaleRepository $localeRepository)
     {
         $this->entityManager = $entityManager;
-        $this->request = $request;
         $this->currencyRepository = $entityManager->getRepository(Currency::class);
         $this->localeRepository = $localeRepository;
 
@@ -158,36 +154,6 @@ class CurrencyRepository
         }
 
         return (is_null($qb->getQuery()->getOneOrNullResult()));
-    }
-
-    /**
-     * @return Currency|mixed|null
-     * @throws \Exception
-     */
-    private function findCurrentCurrency()
-    {
-        if ($currency = $this->request->getQuery('currency'))
-        {
-            if ($found = $found = $this->getByCode($currency))
-            {
-                return $found;
-            }
-        }
-
-        if ($found = $this->localeRepository->getCurrentLocale()->getCurrency()) {
-            return $found;
-        } else {
-            throw new \Exception('No default currency selected');
-        }
-    }
-
-    /**
-     * @return Currency|mixed|null
-     * @throws \Exception
-     */
-    public function getCurrentCurrency()
-    {
-        return $this->currentCurrency;
     }
 
     /**
