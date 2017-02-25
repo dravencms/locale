@@ -21,10 +21,6 @@ class CurrencyRepository
     /** @var EntityManager */
     private $entityManager;
 
-
-    /** @var Currency|mixed|null */
-    private $currentCurrency;
-
     /**
      * CurrencyRepository constructor.
      * @param EntityManager $entityManager
@@ -35,8 +31,6 @@ class CurrencyRepository
         $this->entityManager = $entityManager;
         $this->currencyRepository = $entityManager->getRepository(Currency::class);
         $this->localeRepository = $localeRepository;
-
-        $this->currentCurrency = $this->findCurrentCurrency();
     }
 
     /**

@@ -5,10 +5,9 @@
 
 namespace Dravencms\Latte\Locale\Filters;
 
+use Dravencms\Locale\CurrentCurrency;
 use Dravencms\Locale\CurrentLocale;
 use Dravencms\Locale\Inflection\Czech;
-use Dravencms\Model\Locale\Repository\CurrencyRepository;
-use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Kdyby\Translation\Translator;
 
 /**
@@ -17,29 +16,20 @@ use Kdyby\Translation\Translator;
  */
 class Locale
 {
-    /** @var \Dravencms\Model\Locale\Entities\Currency|mixed|null */
-    private $currentCurrency;
-
     /** @var CurrentLocale */
     private $currentLocale;
 
-    /** @var LocaleRepository */
-    private $localeRepository;
-
-    /** @var CurrencyRepository */
-    private $currencyRepository;
+    /** @var CurrentCurrency */
+    private $currentCurrency;
 
     public function __construct(
         Translator $translator,
-        LocaleRepository $localeRepository,
-        CurrencyRepository $currencyRepository,
-        CurrentLocale $currentLocale
+        CurrentLocale $currentLocale,
+        CurrentCurrency $currentCurrency
     )
     {
-        $this->localeRepository = $localeRepository;
-        $this->currencyRepository = $currencyRepository;
         $this->currentLocale = $currentLocale;
-        $this->currentCurrency = $currencyRepository->getCurrentCurrency();
+        $this->currentCurrency = $currentCurrency;
     }
 
     /**
@@ -48,7 +38,7 @@ class Locale
      */
     public function formatPrice($price)
     {
-        return $this->formatNumber($price) . ' ' . $this->currentCurrency->short;
+        return $this->formatNumber($price) . ' ' . $this->currentCurrency->getCode();
     }
 
     /**
