@@ -9,11 +9,15 @@
 namespace Dravencms\Locale;
 
 
+use Kdyby\Translation\Translator;
+
 trait TLocalizedPresenter
 {
     /** @persistent */
     public $locale;
 
+    /** @var Translator @inject */
+    public $translator;
 
     public function startup()
     {
