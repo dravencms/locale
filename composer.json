@@ -18,6 +18,7 @@
     "kdyby/translation": "dev-master",
     "dravencms/base": "@dev",
     "dravencms/location": "@dev",
+    "dravencms/translation": "dev-master",
     "umpirsky/currency-list": "^1.0"
   },
   "require-dev": {
