@@ -114,10 +114,19 @@ class LocaleForm extends Control
         $form->addText('code')
             ->setRequired('Please enter locale code.');
 
-        $form->addText('decPoint')
+
+        $charList = [
+            ' ' => '[space]',
+            ',' => ',',
+            '.' => '.',
+            '\'' => '\'',
+            '`' => '`'
+        ];
+
+        $form->addSelect('decPoint', null, $charList)
             ->setRequired('Please enter locale decimal point.');
 
-        $form->addText('thousandsSep')
+        $form->addSelect('thousandsSep', null, $charList)
             ->setRequired('Please enter locale thousands separator.');
 
         $form->addText('dateFormat')
@@ -155,6 +164,12 @@ class LocaleForm extends Control
 
         if (!$this->presenter->isAllowed('locale', 'edit')) {
             $form->addError('Nemáte oprávění editovat locale.');
+        }
+
+        $exploded = explode('_', $values->code);
+        if (count($exploded) != 2)
+        {
+            $form->addError('Code has wrong format, it must be in [language_code[_country_code]] eg.: (en_US)');
         }
     }
 
