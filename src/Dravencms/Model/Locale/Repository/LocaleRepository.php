@@ -5,10 +5,8 @@
 
 namespace Dravencms\Model\Locale\Repository;
 
-use Dravencms\Model\Locale\Entities\ILocale;
 use Dravencms\Model\Locale\Entities\Locale;
 use Kdyby\Doctrine\EntityManager;
-use Kdyby\Translation\Translator;
 use Nette;
 
 class LocaleRepository
@@ -18,6 +16,8 @@ class LocaleRepository
 
     /** @var EntityManager */
     private $entityManager;
+
+    private $localeRuntimeCache = [];
 
     /**
      * LocaleRepository constructor.
@@ -153,6 +153,24 @@ class LocaleRepository
                 ->setParameter('defaultLocale', $locale)
                 ->getQuery()
                 ->execute();
+        }
+    }
+
+    /**
+     * @param $languageCode
+     * @return Locale|null
+     */
+    public function getLocaleCache($languageCode)
+    {
+        if (array_key_exists($languageCode, $this->localeRuntimeCache))
+        {
+            return $this->localeRuntimeCache[$languageCode];
+        }
+        else
+        {
+            $found = $this->getOneByLanguageCode($languageCode);
+            $this->localeRuntimeCache[$languageCode] = $found;
+            return $found;
         }
     }
 }
