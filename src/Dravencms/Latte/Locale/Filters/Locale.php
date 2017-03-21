@@ -60,13 +60,13 @@ class Locale
         $tomorrow = new \DateTime('+1 day');
         $yesterday = new \DateTime('-1 day');
         if ($dateTime->format('Y-m-d') == $now->format('Y-m-d')) {
-            return 'Dnes ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+            return 'Dnes v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
         } else {
             if ($dateTime->format('Y-m-d') == $tomorrow->format('Y-m-d')) {
-                return 'Zítra ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                return 'Zítra v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
             } else {
                 if ($dateTime->format('Y-m-d') == $yesterday->format('Y-m-d')) {
-                    return 'Včera ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                    return 'Včera v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                 } else {
                     if ($dateTime->format('Y') == date('Y')) {
                         return $dateTime->format(str_replace('Y', '', $this->currentLocale->getDateFormat()) . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
