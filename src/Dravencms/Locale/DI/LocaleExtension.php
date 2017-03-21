@@ -56,6 +56,7 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         $registerToLatte = function (Nette\DI\ServiceDefinition $def) {
             $def->addSetup('addFilter', ['formatNumber', [$this->prefix('@filters'), 'formatNumber']]);
             $def->addSetup('addFilter', ['formatPrice', [$this->prefix('@filters'), 'formatPrice']]);
+            $def->addSetup('addFilter', ['formatDate', [$this->prefix('@filters'), 'formatDate']]);
             $def->addSetup('addFilter', ['formatDateRange', [$this->prefix('@filters'), 'formatDateRange']]);
             $def->addSetup('addFilter', ['dateStringToDateTime', [$this->prefix('@filters'), 'dateStringToDateTime']]);
             $def->addSetup('addFilter', ['dateTimeToDateString', [$this->prefix('@filters'), 'dateTimeToDateString']]);
