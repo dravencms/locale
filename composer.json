@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "kdyby/translation": "dev-master",
+    "kdyby/translation": "^v2.4.0",
     "dravencms/base": "^v1.0",
     "dravencms/location": "^v1.0",
     "dravencms/translation": "^v1.0",
