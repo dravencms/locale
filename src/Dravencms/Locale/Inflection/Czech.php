@@ -19,8 +19,12 @@
 
 namespace Dravencms\Locale\Inflection;
 
-class Czech extends \Nette\Object
+use Nette;
+
+class Czech
 {
+    use Nette\SmartObject;
+
     private $vzor;
     private $isDbgMode;
     private $aCmpReg;

@@ -19,8 +19,9 @@ use Nette;
  * @ORM\Entity
  * @ORM\Table(name="localeLocale")
  */
-class Locale extends Nette\Object implements ILocale
+class Locale implements ILocale
 {
+    use Nette\SmartObject;
     use Identifier;
     use TimestampableEntity;
 

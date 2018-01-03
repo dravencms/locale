@@ -6,7 +6,7 @@ use Dravencms\Model\Locale\Entities\ILocale;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Kdyby\Translation\Translator;
-use Nette\Object;
+use Nette;
 use Nette\Security\User;
 
 
@@ -14,12 +14,17 @@ use Nette\Security\User;
  * Class Locale
  * @package Dravencms\Locale
  */
-class CurrentLocale extends Object implements ILocale
+class CurrentLocale implements ILocale
 {
+    use Nette\SmartObject;
+
+    /** @var LocaleRepository */
     private $localeRepository;
 
+    /** @var Translator */
     private $translator;
 
+    /** @var User */
     private $user;
 
     /**
@@ -27,6 +32,12 @@ class CurrentLocale extends Object implements ILocale
      */
     private $currentLocale = null;
 
+    /**
+     * CurrentLocale constructor.
+     * @param LocaleRepository $localeRepository
+     * @param Translator $translator
+     * @param User $user
+     */
     public function __construct(
         LocaleRepository $localeRepository,
         Translator $translator,
