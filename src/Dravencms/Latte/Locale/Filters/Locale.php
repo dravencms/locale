@@ -5,9 +5,10 @@
 
 namespace Dravencms\Latte\Locale\Filters;
 
-use Dravencms\Locale\CurrentCurrency;
-use Dravencms\Locale\CurrentLocale;
+use Dravencms\Locale\CurrentCurrencyResolver;
+use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Locale\Inflection\Czech;
+use Dravencms\Model\Locale\Entities\ILocale;
 use Kdyby\Translation\Translator;
 
 /**
@@ -16,20 +17,20 @@ use Kdyby\Translation\Translator;
  */
 class Locale
 {
-    /** @var CurrentLocale */
+    /** @var ILocale */
     private $currentLocale;
 
-    /** @var CurrentCurrency */
+    /** @var ILocale */
     private $currentCurrency;
 
     public function __construct(
         Translator $translator,
-        CurrentLocale $currentLocale,
-        CurrentCurrency $currentCurrency
+        CurrentLocaleResolver $currentLocaleResolver,
+        CurrentCurrencyResolver $currentCurrencyResolver
     )
     {
-        $this->currentLocale = $currentLocale;
-        $this->currentCurrency = $currentCurrency;
+        $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
+        $this->currentCurrency = $currentCurrencyResolver->getCurrentCurrency();
     }
 
     /**

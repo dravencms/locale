@@ -4,7 +4,9 @@ namespace Dravencms\FrontModule\Components\Locale\Locale\Switcher;
 
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Locale\CurrentCurrency;
+use Dravencms\Locale\CurrentCurrencyResolver;
 use Dravencms\Locale\CurrentLocale;
+use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 
@@ -25,15 +27,15 @@ class Switcher extends BaseControl
     public function __construct(
         LocaleRepository $localeRepository,
         CurrencyRepository $currencyRepository,
-        CurrentLocale $currentLocale,
-        CurrentCurrency $currentCurrency
+        CurrentLocaleResolver $currentLocaleResolver,
+        CurrentCurrencyResolver $currentCurrencyResolver
     )
     {
         parent::__construct();
         $this->localeRepository = $localeRepository;
         $this->currencyRepository = $currencyRepository;
-        $this->currentLocale = $currentLocale;
-        $this->currentCurrency = $currentCurrency;
+        $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
+        $this->currentCurrency = $currentCurrencyResolver->getCurrentCurrency();
     }
 
     public function render()

@@ -1,22 +1,20 @@
 <?php
 
 namespace Dravencms\Locale;
-use Dravencms\Model\Locale\Entities\Currency;
-use Dravencms\Model\Locale\Entities\ILocale;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Kdyby\Translation\Translator;
-use Nette;
 use Nette\Security\User;
+use Nette\SmartObject;
 
 
 /**
- * Class Locale
+ * Class CurrentLocaleResolver
  * @package Dravencms\Locale
  */
-class CurrentLocale implements ILocale
+class CurrentLocaleResolver
 {
-    use Nette\SmartObject;
+    use SmartObject;
 
     /** @var LocaleRepository */
     private $localeRepository;
@@ -80,10 +78,10 @@ class CurrentLocale implements ILocale
     }
 
     /**
-     * @return Locale|mixed|null
+     * @return Locale|null
      * @throws \Exception
      */
-    private function getCurrentLocale()
+    public function getCurrentLocale()
     {
         if (is_null($this->currentLocale))
         {
@@ -91,95 +89,5 @@ class CurrentLocale implements ILocale
         }
 
         return $this->currentLocale;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->getCurrentLocale()->getId();
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function getDateFormat()
-    {
-        return $this->getCurrentLocale()->getDateFormat();
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function getTimeFormat()
-    {
-        return $this->getCurrentLocale()->getTimeFormat();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDateTimeFormat()
-    {
-        return $this->getDateFormat().' '.$this->getTimeFormat();
-    }
-
-    /**
-     * @return Currency
-     */
-    public function getCurrency()
-    {
-        return $this->getCurrentLocale()->getCurrency();
-    }
-
-    /**
-     * @return string
-     */
-    public function getLanguageCode()
-    {
-        return $this->getCurrentLocale()->getLanguageCode();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->getCurrentLocale()->getName();
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->getCurrentLocale()->getCode();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDecPoint()
-    {
-        return $this->getCurrentLocale()->getDecPoint();
-    }
-
-    /**
-     * @return string
-     */
-    public function getThousandsSep()
-    {
-        return $this->getCurrentLocale()->getThousandsSep();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string)$this->getCurrentLocale()->getId();
     }
 }

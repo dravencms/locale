@@ -10,17 +10,19 @@ namespace Dravencms\Locale;
 
 
 use Dravencms\Model\Locale\Entities\Currency;
-use Dravencms\Model\Locale\Entities\ICurrency;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Nette\Http\Request;
+use Nette\SmartObject;
 
-class CurrentCurrency implements ICurrency
+class CurrentCurrencyResolver
 {
+    use SmartObject;
+
     /** @var CurrencyRepository */
     private $currencyRepository;
 
-    /** @var CurrentLocale */
-    private $currentLocale;
+    /** @var CurrentLocaleResolver */
+    private $currentLocaleResolver;
 
     /** @var Request */
     private $request;
@@ -30,13 +32,13 @@ class CurrentCurrency implements ICurrency
     
     public function __construct(
         CurrencyRepository $currencyRepository,
-        CurrentLocale $currentLocale,
+        CurrentLocaleResolver $currentLocaleResolver,
         Request $request
     )
     {
         $this->request = $request;
         $this->currencyRepository = $currencyRepository;
-        $this->currentLocale = $currentLocale;
+        $this->currentLocaleResolver = $currentLocaleResolver;
     }
     
     /**
@@ -53,7 +55,7 @@ class CurrentCurrency implements ICurrency
             }
         }
 
-        if ($found = $this->currentLocale->getCurrency()) {
+        if ($found = $this->currentLocaleResolver->getCurrentLocale()->getCurrency()) {
             return $found;
         } else {
             throw new \Exception('No default currency selected');
@@ -64,7 +66,7 @@ class CurrentCurrency implements ICurrency
      * @return Currency
      * @throws \Exception
      */
-    private function getCurrentCurrency()
+    public function getCurrentCurrency()
     {
         if (!$this->currentCurrency)
         {
@@ -72,29 +74,5 @@ class CurrentCurrency implements ICurrency
         }
 
         return $this->currentCurrency;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->getCurrentCurrency()->getName();
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->getCurrentCurrency()->getCode();
-    }
-
-    /**
-     * @return string
-     */
-    public function getSign()
-    {
-        return $this->getCurrentCurrency()->getSign();
     }
 }
