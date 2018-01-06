@@ -22,6 +22,7 @@
 namespace Dravencms\AdminModule\Components\Locale\CurrencyGrid;
 
 use Dravencms\Components\BaseGrid\BaseGridFactory;
+use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
@@ -66,75 +67,55 @@ class CurrencyGrid extends Control
 
     /**
      * @param $name
-     * @return \Dravencms\Components\BaseGrid
+     * @return Grid
      */
     public function createComponentGrid($name)
     {
+        /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
 
-        $grid->setModel($this->currencyRepository->getCurrencyQueryBuilder());
+        $grid->setDataSource($this->currencyRepository->getCurrencyQueryBuilder());
 
         $grid->addColumnText('name', 'Name')
             ->setSortable()
-            ->setFilterText()
-            ->setSuggestion();
+            ->setFilterText();
 
         $grid->addColumnText('sign', 'Sign')
             ->setSortable()
-            ->setFilterText()
-            ->setSuggestion();
+            ->setFilterText();
 
         $grid->addColumnText('code', 'Code')
             ->setSortable()
-            ->setFilterText()
-            ->setSuggestion();
+            ->setFilterText();
 
         $grid->addColumnBoolean('isDefault', 'Default');
 
         $grid->addColumnBoolean('isActive', 'Active');
 
         if ($this->presenter->isAllowed('locale', 'currencyEdit')) {
-            $grid->addActionHref('edit', 'Upravit')
-                ->setIcon('pencil');
+            $grid->addAction('edit', null)
+                ->setIcon('pencil')
+                ->setTitle('Upravit')
+                ->setClass('btn btn-xs btn-primary');
         }
 
         if ($this->presenter->isAllowed('locale', 'currencyDelete')) {
-            $grid->addActionHref('delete', 'Smazat', 'delete!')
-                ->setCustomHref(function($row){
-                    return $this->link('delete!', $row->getId());
-                })
-                ->setIcon('trash-o')
-                ->setConfirm(function ($row) {
-                    return ['Opravdu chcete smazat měnu %s ?', $row->name];
-                });
+            $grid->addAction('delete', '', 'delete!')
+                ->setIcon('trash')
+                ->setTitle('Smazat')
+                ->setClass('btn btn-xs btn-danger ajax')
+                ->setConfirm('Do you really want to delete row %s?', 'name');
 
-
-            $operations = ['delete' => 'Smazat'];
-            $grid->setOperation($operations, [$this, 'gridOperationsHandler'])
-                ->setConfirm('delete', 'Opravu chcete smazat %i locales ?');
+            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'gridGroupActionDelete'];
         }
-        $grid->setExport();
 
         return $grid;
     }
 
     /**
-     * @param $action
-     * @param $ids
-     */
-    public function gridOperationsHandler($action, $ids)
-    {
-        switch ($action)
-        {
-            case 'delete':
-                $this->handleDelete($ids);
-                break;
-        }
-    }
-
-    /**
      * @param $id
      * @throws \Exception
+     * @isAllowed(locale, currencyDelete)
      */
     public function handleDelete($id)
     {

@@ -22,10 +22,12 @@
 namespace Dravencms\AdminModule\Components\Locale\LocaleGrid;
 
 use Dravencms\Components\BaseGrid\BaseGridFactory;
+use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Utils\Html;
+use Ublaboo\DataGrid\DataGrid;
 
 /**
  * Description of LocaleGrid
@@ -67,76 +69,60 @@ class LocaleGrid extends Control
 
     /**
      * @param $name
-     * @return \Dravencms\Components\BaseGrid
+     * @return Grid
      */
     public function createComponentGrid($name)
     {
+        /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
 
-        $grid->setModel($this->localeRepository->getLocaleQueryBuilder());
+        $grid->setDataSource($this->localeRepository->getLocaleQueryBuilder());
 
         $grid->addColumnText('flag', 'Flag')
-            ->setCustomRender(function ($row) {
-                $el = Html::el('span');
-                $el->class = sprintf('flag-icon flag-icon-%s', strtolower($row->getCountry()->getCode()));
-                return $el;
-            });
-
-        $grid->getColumn('flag')->cellPrototype->class[] = 'center';
-
+            ->setAlign('center')
+            ->setTemplate(__DIR__ . '/flag.latte');
+        
         $grid->addColumnText('name', 'Name')
             ->setSortable()
-            ->setFilterText()
-            ->setSuggestion();
-
-
+            ->setFilterText();
+        
         $grid->addColumnBoolean('isDefault', 'Default');
 
         $grid->addColumnBoolean('isActive', 'Active');
 
-
         if ($this->presenter->isAllowed('locale', 'edit')) {
-            $grid->addActionHref('edit', 'Upravit')
-                ->setIcon('pencil');
+
+            $grid->addAction('edit', '', 'edit')
+                ->setIcon('pencil')
+                ->setTitle('Upravit')
+                ->setClass('btn btn-xs btn-primary');
         }
 
         if ($this->presenter->isAllowed('locale', 'delete')) {
-            $grid->addActionHref('delete', 'Smazat', 'delete!')
-                ->setCustomHref(function($row){
-                    return $this->link('delete!', $row->getId());
-                })
-                ->setIcon('trash-o')
-                ->setConfirm(function ($row) {
-                    return ['Opravdu chcete smazat město %s ?', $row->name];
-                });
+            $grid->addAction('delete', '', 'delete!')
+                ->setIcon('trash')
+                ->setTitle('Smazat')
+                ->setClass('btn btn-xs btn-danger ajax')
+                ->setConfirm('Do you really want to delete row %s?', 'name');
 
-
-            $operations = ['delete' => 'Smazat'];
-            $grid->setOperation($operations, [$this, 'gridOperationsHandler'])
-                ->setConfirm('delete', 'Opravu chcete smazat %i locales ?');
+            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'gridGroupActionDelete'];
         }
-        $grid->setExport();
 
         return $grid;
     }
 
     /**
-     * @param $action
-     * @param $ids
+     * @param array $ids
      */
-    public function gridOperationsHandler($action, $ids)
+    public function gridGroupActionDelete(array $ids)
     {
-        switch ($action)
-        {
-            case 'delete':
-                $this->handleDelete($ids);
-                break;
-        }
+        $this->handleDelete($ids);
     }
 
     /**
      * @param $id
      * @throws \Exception
+     * @isAllowed(locale, delete)
      */
     public function handleDelete($id)
     {
@@ -148,7 +134,11 @@ class LocaleGrid extends Control
 
         $this->entityManager->flush();
 
-        $this->onDelete();
+        if ($this->presenter->isAjax()) {
+            $this['grid']->reload();
+        } else {
+            $this->onDelete();
+        }
     }
 
     public function render()
