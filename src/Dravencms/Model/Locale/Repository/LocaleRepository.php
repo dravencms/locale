@@ -54,6 +54,15 @@ class LocaleRepository
     {
         return $this->localeRepository->findOneBy(['languageCode' => $languageCode]);
     }
+    
+    /**
+     * @param $languageCode string
+     * @return mixed|null|Locale
+     */
+    public function getOneActiveByLanguageCode($languageCode)
+    {
+        return $this->localeRepository->findOneBy(['languageCode' => $languageCode, 'isActive' => true]);
+    }
 
     /**
      * @return array
