@@ -65,7 +65,7 @@ class CurrentLocaleResolver
         }*/
 
         // Set current locale model
-        if ($found = $this->localeRepository->getOneByLanguageCode($this->translator->getLocale())) {
+        if ($found = $this->localeRepository->getOneActiveByLanguageCode($this->translator->getLocale())) {
             return $found;
         } else {
             //Not found
