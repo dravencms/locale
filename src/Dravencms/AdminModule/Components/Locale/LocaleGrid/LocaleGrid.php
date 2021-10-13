@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /*
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
@@ -24,10 +24,9 @@ namespace Dravencms\AdminModule\Components\Locale\LocaleGrid;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
-use Nette\Utils\Html;
-use Ublaboo\DataGrid\DataGrid;
+
 
 /**
  * Description of LocaleGrid
@@ -59,8 +58,6 @@ class LocaleGrid extends Control
      */
     public function __construct(LocaleRepository $localeRepository, BaseGridFactory $baseGridFactory, EntityManager $entityManager)
     {
-        parent::__construct();
-
         $this->baseGridFactory = $baseGridFactory;
         $this->localeRepository = $localeRepository;
         $this->entityManager = $entityManager;
@@ -68,10 +65,11 @@ class LocaleGrid extends Control
 
 
     /**
-     * @param $name
+     * @param string $name
      * @return Grid
+     * @throws \Ublaboo\DataGrid\Exception\DataGridException
      */
-    public function createComponentGrid($name)
+    public function createComponentGrid(string $name): Grid
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
@@ -113,8 +111,9 @@ class LocaleGrid extends Control
 
     /**
      * @param array $ids
+     * @throws \Exception
      */
-    public function gridGroupActionDelete(array $ids)
+    public function gridGroupActionDelete(array $ids): void
     {
         $this->handleDelete($ids);
     }
@@ -124,7 +123,7 @@ class LocaleGrid extends Control
      * @throws \Exception
      * @isAllowed(locale, delete)
      */
-    public function handleDelete($id)
+    public function handleDelete($id): void
     {
         $locales = $this->localeRepository->getById($id);
         foreach ($locales AS $locale)
@@ -141,7 +140,7 @@ class LocaleGrid extends Control
         }
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/LocaleGrid.latte');

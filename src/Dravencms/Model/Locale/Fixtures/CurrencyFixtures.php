@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -7,7 +7,7 @@ namespace Dravencms\Model\Locale\Fixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Dravencms\Model\Locale\Entities\Currency;
 
 class CurrencyFixtures extends AbstractFixture implements DependentFixtureInterface
@@ -41,9 +41,9 @@ class CurrencyFixtures extends AbstractFixture implements DependentFixtureInterf
     /**
      * Get the order of this fixture
      *
-     * @return integer
+     * @return array
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return ['Dravencms\Model\Locale\Fixtures\AclOperationFixtures'];
     }

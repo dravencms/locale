@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -6,17 +6,18 @@
 namespace Dravencms\Model\Locale\Repository;
 
 use Dravencms\Model\Locale\Entities\Locale;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette;
 
 class LocaleRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Doctrine\Persistence\ObjectRepository|Locale|string */
     private $localeRepository;
 
     /** @var EntityManager */
     private $entityManager;
 
+    /** @var array */
     private $localeRuntimeCache = [];
 
     /**
@@ -33,7 +34,7 @@ class LocaleRepository
     /**
      * @return mixed|null|Locale
      */
-    public function getDefault()
+    public function getDefault(): ?Locale
     {
         return $this->localeRepository->findOneBy(['isDefault' => true]);
     }
@@ -50,7 +51,7 @@ class LocaleRepository
      * @param $languageCode
      * @return mixed|null|Locale
      */
-    public function getOneByLanguageCode($languageCode)
+    public function getOneByLanguageCode(string $languageCode): ?Locale
     {
         return $this->localeRepository->findOneBy(['languageCode' => $languageCode]);
     }
@@ -59,7 +60,7 @@ class LocaleRepository
      * @param $languageCode string
      * @return mixed|null|Locale
      */
-    public function getOneActiveByLanguageCode($languageCode)
+    public function getOneActiveByLanguageCode(string $languageCode): ?Locale
     {
         return $this->localeRepository->findOneBy(['languageCode' => $languageCode, 'isActive' => true]);
     }
@@ -67,7 +68,7 @@ class LocaleRepository
     /**
      * @return array
      */
-    public function getPairs()
+    public function getPairs(): array
     {
         return $this->localeRepository->findPairs('name');
     }
@@ -76,7 +77,7 @@ class LocaleRepository
      * @param $id
      * @return null|Locale
      */
-    public function getOneById($id)
+    public function getOneById(int $id): ?Locale
     {
         return $this->localeRepository->find($id);
     }
@@ -101,12 +102,11 @@ class LocaleRepository
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param Locale|null $ignoreLocale
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return bool
      */
-    public function isNameFree($name, Locale $ignoreLocale = null)
+    public function isNameFree(string $name, Locale $ignoreLocale = null): bool
     {
         $qb = $this->localeRepository->createQueryBuilder('l')
             ->select('l')
@@ -125,12 +125,11 @@ class LocaleRepository
     }
 
     /**
-     * @param $code
+     * @param string $code
      * @param Locale|null $ignoreLocale
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return bool
      */
-    public function isCodeFree($code, Locale $ignoreLocale = null)
+    public function isCodeFree(string $code, Locale $ignoreLocale = null): bool
     {
         $qb = $this->localeRepository->createQueryBuilder('l')
             ->select('l')
@@ -169,7 +168,7 @@ class LocaleRepository
      * @param $languageCode
      * @return Locale|null
      */
-    public function getLocaleCache($languageCode)
+    public function getLocaleCache(string $languageCode): ?Locale
     {
         if (array_key_exists($languageCode, $this->localeRuntimeCache))
         {

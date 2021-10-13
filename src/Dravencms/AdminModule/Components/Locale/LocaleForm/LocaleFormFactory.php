@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  *
@@ -28,5 +28,5 @@ interface LocaleFormFactory
      * @param Locale|null $locale
      * @return LocaleForm
      */
-    public function create(Locale $locale = null);
+    public function create(Locale $locale = null): LocaleForm;
 }

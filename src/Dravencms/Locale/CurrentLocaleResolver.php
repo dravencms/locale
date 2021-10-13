@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dravencms\Locale;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
-use Kdyby\Translation\Translator;
+use Contributte\Translation\Translator;
 use Nette\Security\User;
 use Nette\SmartObject;
 
@@ -52,18 +52,8 @@ class CurrentLocaleResolver
      * @return Locale|mixed|null
      * @throws \Exception
      */
-    private function findCurrentLocale()
+    private function findCurrentLocale(): Locale
     {
-        /*$user = $this->user->getIdentity();
-        if ($user)
-        {
-            $userLocale = $user->getLocale();
-            if ($userLocale)
-            {
-                $this->translator->setLocale($userLocale->getLanguageCode());
-            }
-        }*/
-
         // Set current locale model
         if ($found = $this->localeRepository->getOneActiveByLanguageCode($this->translator->getLocale())) {
             return $found;
@@ -81,7 +71,7 @@ class CurrentLocaleResolver
      * @return Locale|null
      * @throws \Exception
      */
-    public function getCurrentLocale()
+    public function getCurrentLocale(): Locale
     {
         if (is_null($this->currentLocale))
         {

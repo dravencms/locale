@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /*
  * To change this template, choose Tools | Templates
@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Nette;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Dravencms\Database\Attributes\Identifier;
 
 /**
  * Class Currency
@@ -68,7 +68,7 @@ class Currency implements ICurrency
      * @param bool $isDefault
      * @param bool $isActive
      */
-    public function __construct($name, $code, $sign, $isDefault = false, $isActive = true)
+    public function __construct(string $name, string $code, string $sign, bool $isDefault = false, bool $isActive = true)
     {
         $this->name = $name;
         $this->code = $code;
@@ -80,7 +80,7 @@ class Currency implements ICurrency
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -88,7 +88,7 @@ class Currency implements ICurrency
     /**
      * @param string $code
      */
-    public function setCode($code)
+    public function setCode(string $code): void
     {
         $this->code = $code;
     }
@@ -96,7 +96,7 @@ class Currency implements ICurrency
     /**
      * @param string $sign
      */
-    public function setSign($sign)
+    public function setSign(string $sign): void
     {
         $this->sign = $sign;
     }
@@ -104,7 +104,7 @@ class Currency implements ICurrency
     /**
      * @param boolean $isDefault
      */
-    public function setIsDefault($isDefault)
+    public function setIsDefault(bool $isDefault): void
     {
         $this->isDefault = $isDefault;
     }
@@ -112,7 +112,7 @@ class Currency implements ICurrency
     /**
      * @param boolean $isActive
      */
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
     }
@@ -120,7 +120,7 @@ class Currency implements ICurrency
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -128,7 +128,7 @@ class Currency implements ICurrency
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -136,7 +136,7 @@ class Currency implements ICurrency
     /**
      * @return string
      */
-    public function getSign()
+    public function getSign(): string
     {
         return $this->sign;
     }
@@ -144,7 +144,7 @@ class Currency implements ICurrency
     /**
      * @return boolean
      */
-    public function isDefault()
+    public function isDefault(): bool
     {
         return $this->isDefault;
     }
@@ -152,7 +152,7 @@ class Currency implements ICurrency
     /**
      * @return boolean
      */
-    public function isActive()
+    public function isActive(): bool
     {
         return $this->isActive;
     }
@@ -160,7 +160,7 @@ class Currency implements ICurrency
     /**
      * @return Locale[]|ArrayCollection
      */
-    public function getLocales()
+    public function getLocales(): ArrayCollection
     {
         return $this->locales;
     }

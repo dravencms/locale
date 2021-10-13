@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -14,50 +14,50 @@ interface ILocale
     /**
      * @return integer
      */
-    public function getId();
+    public function getId(): int;
 
     /**
-     * @return Currency
+     * @return ICurrency
      */
-    public function getCurrency();
-
-    /**
-     * @return string
-     */
-    public function getLanguageCode();
+    public function getCurrency(): ICurrency;
 
     /**
      * @return string
      */
-    public function getName();
+    public function getLanguageCode(): string;
 
     /**
      * @return string
      */
-    public function getCode();
+    public function getName(): string;
 
     /**
      * @return string
      */
-    public function getDecPoint();
+    public function getCode(): string;
 
     /**
      * @return string
      */
-    public function getThousandsSep();
+    public function getDecPoint(): string;
 
     /**
      * @return string
      */
-    public function getDateFormat();
+    public function getThousandsSep(): string;
 
     /**
      * @return string
      */
-    public function getTimeFormat();
+    public function getDateFormat(): string;
 
     /**
      * @return string
      */
-    public function getDateTimeFormat();
+    public function getTimeFormat(): string;
+
+    /**
+     * @return string
+     */
+    public function getDateTimeFormat(): string;
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -7,12 +7,11 @@ namespace Dravencms\Model\Locale\Repository;
 
 
 use Dravencms\Model\Locale\Entities\Currency;
-use Kdyby\Doctrine\EntityManager;
-use Nette;
+use Dravencms\Database\EntityManager;
 
 class CurrencyRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Doctrine\Persistence\ObjectRepository|Currency|string */
     private $currencyRepository;
 
     /** @var LocaleRepository */
@@ -37,7 +36,7 @@ class CurrencyRepository
      * @param $code
      * @return mixed|null|Currency
      */
-    public function getByCode($code)
+    public function getByCode(string $code): ?Currency
     {
         return $this->currencyRepository->findOneBy(['code' => $code]);
     }
@@ -45,7 +44,7 @@ class CurrencyRepository
     /**
      * @return array
      */
-    public function getPairs()
+    public function getPairs(): array
     {
         return $this->currencyRepository->findPairs('name');
     }
@@ -54,7 +53,7 @@ class CurrencyRepository
      * @param $id
      * @return null|Currency
      */
-    public function getOneById($id)
+    public function getOneById(int $id): ?Currency
     {
         return $this->currencyRepository->find($id);
     }
@@ -79,12 +78,11 @@ class CurrencyRepository
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param Currency|null $ignoreCurrency
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return bool
      */
-    public function isNameFree($name, Currency $ignoreCurrency = null)
+    public function isNameFree(string $name, Currency $ignoreCurrency = null): bool
     {
         $qb = $this->currencyRepository->createQueryBuilder('c')
             ->select('c')
@@ -103,12 +101,11 @@ class CurrencyRepository
     }
 
     /**
-     * @param $code
+     * @param string $code
      * @param Currency|null $ignoreCurrency
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return bool
      */
-    public function isCodeFree($code, Currency $ignoreCurrency = null)
+    public function isCodeFree(string $code, Currency $ignoreCurrency = null): bool
     {
         $qb = $this->currencyRepository->createQueryBuilder('c')
             ->select('c')
@@ -127,12 +124,11 @@ class CurrencyRepository
     }
 
     /**
-     * @param $sign
+     * @param string $sign
      * @param Currency|null $ignoreCurrency
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return bool
      */
-    public function isSignFree($sign, Currency $ignoreCurrency = null)
+    public function isSignFree(string $sign, Currency $ignoreCurrency = null): bool
     {
         $qb = $this->currencyRepository->createQueryBuilder('c')
             ->select('c')
@@ -154,7 +150,7 @@ class CurrencyRepository
      * @param bool $isActive
      * @return array
      */
-    public function getActive($isActive = true)
+    public function getActive(bool $isActive = true)
     {
         return $this->currencyRepository->findBy(['isActive' => $isActive]);
     }

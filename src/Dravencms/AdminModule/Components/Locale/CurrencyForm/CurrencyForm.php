@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  *
@@ -20,10 +20,11 @@
 
 namespace Dravencms\AdminModule\Components\Locale\CurrencyForm;
 
+use Dravencms\Components\BaseForm\BaseForm;
 use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Locale\Entities\Currency;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 
@@ -56,7 +57,6 @@ class CurrencyForm extends Control
         CurrencyRepository $currencyRepository,
         Currency $currency = null
     ) {
-        parent::__construct();
 
         $this->currency = $currency;
 
@@ -79,9 +79,9 @@ class CurrencyForm extends Control
     }
 
     /**
-     * @return \Dravencms\Components\BaseForm
+     * @return BaseForm
      */
-    protected function createComponentForm()
+    protected function createComponentForm(): BaseForm
     {
         $form = $this->baseFormFactory->create();
 
@@ -106,7 +106,7 @@ class CurrencyForm extends Control
         return $form;
     }
 
-    public function editFormValidate(Form $form)
+    public function editFormValidate(Form $form): void
     {
         $values = $form->getValues();
         if (!$this->currencyRepository->isNameFree($values->name, $this->currency)) {
@@ -126,7 +126,7 @@ class CurrencyForm extends Control
         }
     }
 
-    public function editFormSucceeded(Form $form)
+    public function editFormSucceeded(Form $form): void
     {
         $values = $form->getValues();
 
@@ -150,7 +150,7 @@ class CurrencyForm extends Control
         $this->onSuccess();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/CurrencyForm.latte');

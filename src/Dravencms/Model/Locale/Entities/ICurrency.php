@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Created by PhpStorm.
  * User: sadam
@@ -17,15 +17,15 @@ interface ICurrency
     /**
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * @return string
      */
-    public function getCode();
+    public function getCode(): string;
 
     /**
      * @return string
      */
-    public function getSign();
+    public function getSign(): string;
 }

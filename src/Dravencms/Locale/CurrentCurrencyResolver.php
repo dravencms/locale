@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Created by PhpStorm.
  * User: sadam
@@ -45,7 +45,7 @@ class CurrentCurrencyResolver
      * @return \Dravencms\Model\Locale\Entities\Currency|mixed|null
      * @throws \Exception
      */
-    private function findCurrentCurrency()
+    private function findCurrentCurrency(): Currency
     {
         if ($currency = $this->request->getQuery('currency'))
         {
@@ -66,7 +66,7 @@ class CurrentCurrencyResolver
      * @return Currency
      * @throws \Exception
      */
-    public function getCurrentCurrency()
+    public function getCurrentCurrency(): Currency
     {
         if (!$this->currentCurrency)
         {

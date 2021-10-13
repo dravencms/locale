@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -9,7 +9,6 @@ use Dravencms\Locale\CurrentCurrencyResolver;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Locale\Inflection\Czech;
 use Dravencms\Model\Locale\Entities\ILocale;
-use Kdyby\Translation\Translator;
 
 /**
  * Class Locale
@@ -24,7 +23,6 @@ class Locale
     private $currentCurrency;
 
     public function __construct(
-        Translator $translator,
         CurrentLocaleResolver $currentLocaleResolver,
         CurrentCurrencyResolver $currentCurrencyResolver
     )
@@ -37,7 +35,7 @@ class Locale
      * @param integer $price
      * @return string string
      */
-    public function formatPrice($price)
+    public function formatPrice(int $price): string
     {
         return $this->formatNumber($price) . ' ' . $this->currentCurrency->getCode();
     }
@@ -46,7 +44,7 @@ class Locale
      * @param integer $number
      * @return string mixed
      */
-    public function formatNumber($number)
+    public function formatNumber(int $number): string
     {
         return str_replace(' ', '&nbsp;', number_format($number, 0, $this->currentLocale->getDecPoint(), $this->currentLocale->getThousandsSep()));
     }
@@ -54,8 +52,9 @@ class Locale
     /**
      * @param \DateTimeInterface $dateTime
      * @return string
+     * @throws \Exception
      */
-    public function formatDate(\DateTimeInterface $dateTime)
+    public function formatDate(\DateTimeInterface $dateTime): string
     {
         $now = new \DateTime;
         $tomorrow = new \DateTime('+1 day');
@@ -83,8 +82,9 @@ class Locale
      * @param \DateTimeInterface $dateTimeStart
      * @param \DateTimeInterface $dateTimeEnd
      * @return string
+     * @throws \Exception
      */
-    public function formatDateRange(\DateTimeInterface $dateTimeStart, \DateTimeInterface $dateTimeEnd)
+    public function formatDateRange(\DateTimeInterface $dateTimeStart, \DateTimeInterface $dateTimeEnd): string
     {
         $now = new \DateTime;
         $tomorrow = new \DateTime('+1 day');
@@ -123,9 +123,9 @@ class Locale
     /**
      * @param string $dateString
      * @param bool $time
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
-    public function dateStringToDateTime($dateString, $time = true)
+    public function dateStringToDateTime(string $dateString, bool $time = true): \DateTimeInterface
     {
         $format = array();
         $format[] = $this->currentLocale->getDateFormat();
@@ -141,7 +141,7 @@ class Locale
      * @param bool $time
      * @return string
      */
-    public function dateTimeToDateString(\DateTimeInterface $dateTime, $time = true)
+    public function dateTimeToDateString(\DateTimeInterface $dateTime, bool $time = true): string
     {
         $format = [];
         $format[] = $this->currentLocale->getDateFormat();
@@ -153,10 +153,10 @@ class Locale
     }
 
     /**
-     * @param $localeFormat
-     * @return mixed
+     * @param string $localeFormat
+     * @return string
      */
-    public function localeFormatToJsFormat($localeFormat)
+    public function localeFormatToJsFormat(string $localeFormat): string
     {
         $replaceArray = [];
         $replaceArray['Y'] = 'yyyy';
@@ -168,9 +168,9 @@ class Locale
     /**
      * @param $string
      * @param $type
-     * @return array
+     * @return string
      */
-    public function inflection($string, $type = null)
+    public function inflection(string $string, $type = null): string
     {
         if (!is_null($type))
         {

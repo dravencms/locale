@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /*
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
@@ -24,7 +24,7 @@ namespace Dravencms\AdminModule\Components\Locale\CurrencyGrid;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
 
 /**
@@ -57,8 +57,6 @@ class CurrencyGrid extends Control
      */
     public function __construct(CurrencyRepository $currencyRepository, BaseGridFactory $baseGridFactory, EntityManager $entityManager)
     {
-        parent::__construct();
-
         $this->baseGridFactory = $baseGridFactory;
         $this->currencyRepository = $currencyRepository;
         $this->entityManager = $entityManager;
@@ -66,10 +64,11 @@ class CurrencyGrid extends Control
 
 
     /**
-     * @param $name
+     * @param string $name
      * @return Grid
+     * @throws \Ublaboo\DataGrid\Exception\DataGridException
      */
-    public function createComponentGrid($name)
+    public function createComponentGrid(string $name): Grid
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
@@ -117,7 +116,7 @@ class CurrencyGrid extends Control
      * @throws \Exception
      * @isAllowed(locale, currencyDelete)
      */
-    public function handleDelete($id)
+    public function handleDelete($id): void
     {
         $locales = $this->currencyRepository->getById($id);
         foreach ($locales AS $locale)
@@ -130,7 +129,7 @@ class CurrencyGrid extends Control
         $this->onDelete();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/CurrencyGrid.latte');

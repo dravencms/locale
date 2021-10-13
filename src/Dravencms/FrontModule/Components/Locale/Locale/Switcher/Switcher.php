@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dravencms\FrontModule\Components\Locale\Locale\Switcher;
 
 use Dravencms\Components\BaseControl\BaseControl;
-use Dravencms\Locale\CurrentCurrency;
 use Dravencms\Locale\CurrentCurrencyResolver;
-use Dravencms\Locale\CurrentLocale;
 use Dravencms\Locale\CurrentLocaleResolver;
+use Dravencms\Model\Locale\Entities\ICurrency;
+use Dravencms\Model\Locale\Entities\ILocale;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 
@@ -18,12 +18,20 @@ class Switcher extends BaseControl
     /** @var CurrencyRepository */
     private $currencyRepository;
 
-    /** @var CurrentLocale */
+    /** @var ILocale */
     private $currentLocale;
 
-    /** @var CurrentCurrency */
+    /** @var ICurrency */
     private $currentCurrency;
 
+    /**
+     * Switcher constructor.
+     * @param LocaleRepository $localeRepository
+     * @param CurrencyRepository $currencyRepository
+     * @param CurrentLocaleResolver $currentLocaleResolver
+     * @param CurrentCurrencyResolver $currentCurrencyResolver
+     * @throws \Exception
+     */
     public function __construct(
         LocaleRepository $localeRepository,
         CurrencyRepository $currencyRepository,
@@ -38,7 +46,7 @@ class Switcher extends BaseControl
         $this->currentCurrency = $currentCurrencyResolver->getCurrentCurrency();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->locales = $this->localeRepository->getActive();

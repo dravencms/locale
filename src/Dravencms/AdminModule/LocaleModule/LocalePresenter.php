@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -8,7 +8,9 @@
 namespace Dravencms\AdminModule\LocaleModule;
 
 
+use Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleForm;
 use Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleFormFactory;
+use Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGrid;
 use Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Locale\Entities\Locale;
@@ -37,12 +39,16 @@ class LocalePresenter extends SecuredPresenter
     /** @var Locale */
     private $localeEntity = null;
 
-    public function renderDefault()
+
+    public function renderDefault(): void
     {
         $this->template->h1 = 'Locale overview';
     }
 
-    public function actionEdit($id)
+    /**
+     * @param int $id
+     */
+    public function actionEdit(int $id): void
     {
         if ($id) {
             $locale = $this->localeLocaleRepository->getOneById($id);
@@ -58,9 +64,9 @@ class LocalePresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\User\AclOperationGrid
+     * @return \Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGrid
      */
-    public function createComponentGridLocale()
+    public function createComponentGridLocale(): LocaleGrid
     {
         $control = $this->localeGridFactory->create();
         $control->onDelete[] = function()
@@ -72,9 +78,9 @@ class LocalePresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Locale\LocaleForm
+     * @return \Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleForm
      */
-    public function createComponentFormLocale()
+    public function createComponentFormLocale(): LocaleForm
     {
         $control = $this->localeFormFactory->create($this->localeEntity);
         $control->onSuccess[] = function()

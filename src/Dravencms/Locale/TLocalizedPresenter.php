@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Created by PhpStorm.
  * User: sadam
@@ -9,7 +9,7 @@
 namespace Dravencms\Locale;
 
 
-use Kdyby\Translation\Translator;
+use Contributte\Translation\Translator;
 
 trait TLocalizedPresenter
 {

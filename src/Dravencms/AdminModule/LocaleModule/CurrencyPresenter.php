@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -8,7 +8,9 @@
 namespace Dravencms\AdminModule\LocaleModule;
 
 
+use Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyForm;
 use Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyFormFactory;
+use Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGrid;
 use Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Locale\Entities\Currency;
@@ -33,16 +35,15 @@ class CurrencyPresenter extends SecuredPresenter
     /** @var Currency */
     private $currencyEntity = null;
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->h1 = 'Currency overview';
     }
 
     /**
-     * @param $id
-     * @throws \Nette\Application\BadRequestException
+     * @param int $id
      */
-    public function actionEdit($id)
+    public function actionEdit(int $id): void
     {
         if ($id) {
             $currency = $this->localeCurrencyRepository->getOneById($id);
@@ -58,9 +59,9 @@ class CurrencyPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Locale\CurrencyGrid
+     * @return \Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGrid
      */
-    public function createComponentGridCurrency()
+    public function createComponentGridCurrency(): CurrencyGrid
     {
         $control = $this->currencyGridFactory->create();
         $control->onDelete[] = function()
@@ -72,9 +73,9 @@ class CurrencyPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Locale\CurrencyForm
+     * @return \Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyForm
      */
-    public function createComponentFormCurrency()
+    public function createComponentFormCurrency(): CurrencyForm
     {
         $control = $this->currencyFormFactory->create($this->currencyEntity);
         $control->onSuccess[] = function()

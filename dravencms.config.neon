@@ -1,0 +1,22 @@
+extensions:
+    locale: Dravencms\Locale\DI\LocaleExtension
+
+services:
+    - Dravencms\Latte\Locale\Filters\Locale
+    nette.latteFactory:
+        setup:
+            - addFilter(formatNumber, @Dravencms\Latte\Locale\Filters\Locale::formatNumber)
+            - addFilter(formatPrice, @Dravencms\Latte\Locale\Filters\Locale::formatPrice)
+            - addFilter(formatDate, @Dravencms\Latte\Locale\Filters\Locale::formatDate)
+            - addFilter(formatDateRange, @Dravencms\Latte\Locale\Filters\Locale::formatDateRange)
+            - addFilter(dateStringToDateTime, @Dravencms\Latte\Locale\Filters\Locale::dateStringToDateTime)
+            - addFilter(dateTimeToDateString, @Dravencms\Latte\Locale\Filters\Locale::dateTimeToDateString)
+            - addFilter(localeFormatToJsFormat, @Dravencms\Latte\Locale\Filters\Locale::localeFormatToJsFormat)
+            - addFilter(inflection, @Dravencms\Latte\Locale\Filters\Locale::inflection)
+
+
+
+
+doctrine:
+    metadata:
+        Dravencms\Model\Locale: %appDir%/../vendor/dravencms/locale/src/Dravencms/Model/Locale

@@ -15,10 +15,15 @@
     }
   ],
   "require": {
-    "dravencms/base": "^v1.0.4",
-    "dravencms/location": "^v1.0",
-    "dravencms/translation": "^v1.0",
-    "umpirsky/currency-list": "^1.0"
+    "umpirsky/currency-list": "^1.0",
+    "dravencms/application": ">=0.0.2",
+    "dravencms/database": ">=0.0.3",
+    "dravencms/base-form": ">=0.0.1",
+    "dravencms/base-grid": ">=0.0.1",
+    "dravencms/translation": ">=v1.0",
+    "dravencms/location": ">=v1.1",
+    "dravencms/admin": ">=0.0.1",
+    "dravencms/user": ">=0.0.1"
   },
   "require-dev": {
     "nette/tester": "@dev"
@@ -30,20 +35,7 @@
   },
   "extra": {
     "dravencms": {
-      "configuration": {
-        "extensions": {
-          "locale": "Dravencms\\Locale\\DI\\LocaleExtension"
-        },
-        "doctrine":{
-          "metadata": {
-            "Dravencms\\Model\\Locale": "%appDir%/../vendor/dravencms/locale/src/Dravencms/Model/Locale"
-          }
-        }
-      },
-      "scripts": {
-        "post-install": "Dravencms\\Locale\\Script\\PostInstall",
-        "pre-uninstall": "Dravencms\\Locale\\Script\\PreUninstall"
-      }
+      "configuration": "dravencms.config.neon"
     }
   }
 }

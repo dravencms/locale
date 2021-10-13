@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -7,15 +7,14 @@ namespace Dravencms\Model\Locale\Fixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Dravencms\Model\Locale\Entities\Locale;
 
 class LocaleFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
-     *
      * @param ObjectManager $manager
+     * @throws \Exception
      */
     public function load(ObjectManager $manager)
     {
@@ -29,9 +28,9 @@ class LocaleFixtures extends AbstractFixture implements DependentFixtureInterfac
     /**
      * Get the order of this fixture
      *
-     * @return integer
+     * @return array
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return ['Dravencms\Model\Locale\Fixtures\CurrencyFixtures', 'Dravencms\Model\Location\Fixtures\CountryFixtures'];
     }
