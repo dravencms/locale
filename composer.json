@@ -21,9 +21,11 @@
     "dravencms/base-form": ">=0.0.1",
     "dravencms/base-grid": ">=0.0.1",
     "dravencms/translation": ">=v1.0",
-    "dravencms/location": ">=v1.1",
-    "dravencms/admin": ">=0.0.1",
-    "dravencms/user": ">=0.0.1"
+    "dravencms/location": ">=v1.1"
+  },
+  "suggest": {
+    "dravencms/admin": "Provides admin inteface to manage locales",
+    "dravencms/user": "User based locale and ACL settings"
   },
   "require-dev": {
     "nette/tester": "@dev"

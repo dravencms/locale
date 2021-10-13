@@ -17,8 +17,13 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
+        if (!class_exists(Menu::class)) {
+            trigger_error('dravencms/admin module not found, dravencms/locale module wont install Admin menu entries', E_USER_NOTICE);
+            return;
+        }
+
         // Locale
         $menu = $manager->getRepository(Menu::class);
         // Locale

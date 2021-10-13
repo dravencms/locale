@@ -4,7 +4,6 @@ namespace Dravencms\Locale;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Contributte\Translation\Translator;
-use Nette\Security\User;
 use Nette\SmartObject;
 
 
@@ -22,9 +21,6 @@ class CurrentLocaleResolver
     /** @var Translator */
     private $translator;
 
-    /** @var User */
-    private $user;
-
     /**
      * @var null|Locale
      */
@@ -34,17 +30,14 @@ class CurrentLocaleResolver
      * CurrentLocale constructor.
      * @param LocaleRepository $localeRepository
      * @param Translator $translator
-     * @param User $user
      */
     public function __construct(
         LocaleRepository $localeRepository,
-        Translator $translator,
-        User $user
+        Translator $translator
     )
     {
         $this->localeRepository = $localeRepository;
         $this->translator = $translator;
-        $this->user = $user;
     }
 
 
