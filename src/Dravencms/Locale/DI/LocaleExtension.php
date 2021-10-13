@@ -5,13 +5,14 @@ namespace Dravencms\Locale\DI;
 use Dravencms\Latte\Locale\Filters\Locale;
 use Dravencms\Locale\CurrentCurrencyResolver;
 use Dravencms\Locale\CurrentLocaleResolver;
-use Nette;
+use Nette\Bridges\ApplicationLatte\LatteFactory;
+use Nette\DI\CompilerExtension;
 
 /**
  * Class LocaleExtension
  * @package Dravencms\Locale\DI
  */
-class LocaleExtension extends Nette\DI\CompilerExtension
+class LocaleExtension extends CompilerExtension
 {
     public static $prefix = 'locale';
 
@@ -31,6 +32,22 @@ class LocaleExtension extends Nette\DI\CompilerExtension
         $this->loadComponents();
         $this->loadModels();
         $this->loadConsole();
+    }
+
+    public function beforeCompile()
+    {
+        $builder = $this->getContainerBuilder();
+
+
+        $latteFactoryService = $builder->getByType(LatteFactory::class);
+        $latteFactoryService->addSetup('addFilter', ['formatNumber', [$this->prefix('@'.self::$prefix.'filters'), 'formatNumber']]);
+        $latteFactoryService->addSetup('addFilter', ['formatPrice', [$this->prefix('@'.self::$prefix.'filters'), 'formatPrice']]);
+        $latteFactoryService->addSetup('addFilter', ['formatDate', [$this->prefix('@'.self::$prefix.'filters'), 'formatDate']]);
+        $latteFactoryService->addSetup('addFilter', ['formatDateRange', [$this->prefix('@'.self::$prefix.'filters'), 'formatDateRange']]);
+        $latteFactoryService->addSetup('addFilter', ['dateStringToDateTime', [$this->prefix('@'.self::$prefix.'filters'), 'dateStringToDateTime']]);
+        $latteFactoryService->addSetup('addFilter', ['dateTimeToDateString', [$this->prefix('@'.self::$prefix.'filters'), 'dateTimeToDateString']]);
+        $latteFactoryService->addSetup('addFilter', ['localeFormatToJsFormat', [$this->prefix('@'.self::$prefix.'filters'), 'localeFormatToJsFormat']]);
+        $latteFactoryService->addSetup('addFilter', ['inflection', [$this->prefix('@'.self::$prefix.'filters'), 'inflection']]);
     }
 
 
