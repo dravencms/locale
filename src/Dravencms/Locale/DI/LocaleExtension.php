@@ -67,8 +67,7 @@ class LocaleExtension extends CompilerExtension
     {
         $builder = $this->getContainerBuilder();
         foreach ($this->loadFromFile(__DIR__ . '/models.neon') as $i => $command) {
-            $cli = $builder->addDefinition($this->prefix('models.' . $i))
-                ->setAutowired(false);
+            $cli = $builder->addDefinition($this->prefix('models.' . $i));
             if (is_string($command)) {
                 $cli->setFactory($command);
             } else {
