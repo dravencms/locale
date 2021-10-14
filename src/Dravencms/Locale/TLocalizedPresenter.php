@@ -19,7 +19,7 @@ trait TLocalizedPresenter
     /** @var Translator @inject */
     public $translator;
 
-    public function startup()
+    public function startup(): void
     {
         parent::startup();
 
