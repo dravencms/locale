@@ -39,7 +39,7 @@ class LocaleExtension extends CompilerExtension
         $builder = $this->getContainerBuilder();
 
 
-        $latteFactoryService = $builder->getByType(LatteFactory::class);
+        $latteFactoryService = $builder->getDefinitionByType(LatteFactory::class);
         $latteFactoryService->addSetup('addFilter', ['formatNumber', [$this->prefix('@'.self::$prefix.'filters'), 'formatNumber']]);
         $latteFactoryService->addSetup('addFilter', ['formatPrice', [$this->prefix('@'.self::$prefix.'filters'), 'formatPrice']]);
         $latteFactoryService->addSetup('addFilter', ['formatDate', [$this->prefix('@'.self::$prefix.'filters'), 'formatDate']]);
