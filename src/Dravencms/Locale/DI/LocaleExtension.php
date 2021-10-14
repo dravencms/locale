@@ -53,8 +53,7 @@ class LocaleExtension extends CompilerExtension
     {
         $builder = $this->getContainerBuilder();
         foreach ($this->loadFromFile(__DIR__ . '/components.neon') as $i => $command) {
-            $cli = $builder->addFactoryDefinition($this->prefix('components.' . $i))
-                ->setAutowired(false);
+            $cli = $builder->addFactoryDefinition($this->prefix('components.' . $i));
             if (is_string($command)) {
                 $cli->setImplement($command);
             } else {
