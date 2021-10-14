@@ -14,18 +14,16 @@ use Nette\DI\CompilerExtension;
  */
 class LocaleExtension extends CompilerExtension
 {
-    public static $prefix = 'locale';
-
     public function loadConfiguration(): void
     {
         $builder = $this->getContainerBuilder();
-        $builder->addDefinition($this->prefix(self::$prefix.'.currentLocaleResolver'))
+        $builder->addDefinition($this->prefix('currentLocaleResolver'))
             ->setFactory(CurrentLocaleResolver::class);
 
-        $builder->addDefinition($this->prefix(self::$prefix.'.currentCurrencyResolver'))
+        $builder->addDefinition($this->prefix('currentCurrencyResolver'))
             ->setFactory(CurrentCurrencyResolver::class);
 
-        $builder->addDefinition($this->prefix(self::$prefix.'.filters'))
+        $builder->addDefinition($this->prefix('filters'))
             ->setFactory(Locale::class)
             ->setAutowired(false);
 
@@ -40,14 +38,14 @@ class LocaleExtension extends CompilerExtension
 
 
         $latteFactoryService = $builder->getDefinitionByType(LatteFactory::class);
-        $latteFactoryService->addSetup('addFilter', ['formatNumber', [$this->prefix('@'.self::$prefix.'filters'), 'formatNumber']]);
-        $latteFactoryService->addSetup('addFilter', ['formatPrice', [$this->prefix('@'.self::$prefix.'filters'), 'formatPrice']]);
-        $latteFactoryService->addSetup('addFilter', ['formatDate', [$this->prefix('@'.self::$prefix.'filters'), 'formatDate']]);
-        $latteFactoryService->addSetup('addFilter', ['formatDateRange', [$this->prefix('@'.self::$prefix.'filters'), 'formatDateRange']]);
-        $latteFactoryService->addSetup('addFilter', ['dateStringToDateTime', [$this->prefix('@'.self::$prefix.'filters'), 'dateStringToDateTime']]);
-        $latteFactoryService->addSetup('addFilter', ['dateTimeToDateString', [$this->prefix('@'.self::$prefix.'filters'), 'dateTimeToDateString']]);
-        $latteFactoryService->addSetup('addFilter', ['localeFormatToJsFormat', [$this->prefix('@'.self::$prefix.'filters'), 'localeFormatToJsFormat']]);
-        $latteFactoryService->addSetup('addFilter', ['inflection', [$this->prefix('@'.self::$prefix.'filters'), 'inflection']]);
+        $latteFactoryService->addSetup('addFilter', ['formatNumber', [$this->prefix('@filters'), 'formatNumber']]);
+        $latteFactoryService->addSetup('addFilter', ['formatPrice', [$this->prefix('@filters'), 'formatPrice']]);
+        $latteFactoryService->addSetup('addFilter', ['formatDate', [$this->prefix('@filters'), 'formatDate']]);
+        $latteFactoryService->addSetup('addFilter', ['formatDateRange', [$this->prefix('@filters'), 'formatDateRange']]);
+        $latteFactoryService->addSetup('addFilter', ['dateStringToDateTime', [$this->prefix('@filters'), 'dateStringToDateTime']]);
+        $latteFactoryService->addSetup('addFilter', ['dateTimeToDateString', [$this->prefix('@filters'), 'dateTimeToDateString']]);
+        $latteFactoryService->addSetup('addFilter', ['localeFormatToJsFormat', [$this->prefix('@filters'), 'localeFormatToJsFormat']]);
+        $latteFactoryService->addSetup('addFilter', ['inflection', [$this->prefix('@filters'), 'inflection']]);
     }
 
 
