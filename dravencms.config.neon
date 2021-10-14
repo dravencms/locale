@@ -2,6 +2,6 @@ extensions:
     locale: Dravencms\Locale\DI\LocaleExtension
 
 
-doctrine:
-    metadata:
+nettrine.orm.annotations:
+    mapping:
         Dravencms\Model\Locale: %appDir%/../vendor/dravencms/locale/src/Dravencms/Model/Locale
