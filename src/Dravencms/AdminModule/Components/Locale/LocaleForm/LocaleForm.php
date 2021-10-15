@@ -20,7 +20,7 @@
 
 namespace Dravencms\AdminModule\Components\Locale\LocaleForm;
 
-use Dravencms\Components\BaseForm\BaseForm;
+use Dravencms\Components\BaseForm\Form;
 use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
@@ -28,7 +28,8 @@ use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Location\Repository\CountryRepository;
 use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
-use Nette\Application\UI\Form;
+use Nette\Security\User;
+
 
 /**
  * Description of LocaleForm
@@ -52,6 +53,9 @@ class LocaleForm extends Control
     /** @var CountryRepository */
     private $countryRepository;
 
+    /** @var User */
+    private $user;
+
     /** @var Locale */
     private $locale;
 
@@ -74,6 +78,7 @@ class LocaleForm extends Control
         LocaleRepository $localeRepository,
         CurrencyRepository $currencyRepository,
         CountryRepository $countryRepository,
+        User $user,
         Locale $locale = null
     ) {
 
@@ -84,6 +89,7 @@ class LocaleForm extends Control
         $this->localeRepository = $localeRepository;
         $this->currencyRepository = $currencyRepository;
         $this->countryRepository = $countryRepository;
+        $this->user = $user;
 
 
         if ($this->locale) {
@@ -104,7 +110,7 @@ class LocaleForm extends Control
         }
     }
 
-    protected function createComponentForm(): BaseForm
+    protected function createComponentForm(): Form
     {
         $form = $this->baseFormFactory->create();
 
@@ -162,7 +168,7 @@ class LocaleForm extends Control
             $form->addError('Tento kod je již zabrán.');
         }
 
-        if (!$this->presenter->isAllowed('locale', 'edit')) {
+        if (!$this->user->isAllowed('locale', 'edit')) {
             $form->addError('Nemáte oprávění editovat locale.');
         }
 

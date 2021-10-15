@@ -13,6 +13,7 @@ use Dravencms\AdminModule\Components\Locale\CurrencyForm\CurrencyFormFactory;
 use Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGrid;
 use Dravencms\AdminModule\Components\Locale\CurrencyGrid\CurrencyGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
+use Dravencms\Flash;
 use Dravencms\Model\Locale\Entities\Currency;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 
@@ -41,9 +42,10 @@ class CurrencyPresenter extends SecuredPresenter
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
+     * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit(int $id): void
+    public function actionEdit(int $id = null): void
     {
         if ($id) {
             $currency = $this->localeCurrencyRepository->getOneById($id);
@@ -64,9 +66,14 @@ class CurrencyPresenter extends SecuredPresenter
     public function createComponentGridCurrency(): CurrencyGrid
     {
         $control = $this->currencyGridFactory->create();
-        $control->onDelete[] = function()
+        $control->onDelete[] = function($success)
         {
-            $this->flashMessage('Currency has been successfully deleted', 'alert-success');
+            if ($success) {
+                $this->flashMessage('Currency has been successfully deleted', Flash::SUCCESS);
+            } else {
+                $this->flashMessage('Failed to delete currency, maybe it is used somewhere?', Flash::DANGER);
+            }
+
             $this->redirect('Currency:');
         };
         return $control;
@@ -80,7 +87,7 @@ class CurrencyPresenter extends SecuredPresenter
         $control = $this->currencyFormFactory->create($this->currencyEntity);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Currency has been successfully saved', 'alert-success');
+            $this->flashMessage('Currency has been successfully saved', Flash::SUCCESS);
             $this->redirect('Currency:');
         };
         return $control;

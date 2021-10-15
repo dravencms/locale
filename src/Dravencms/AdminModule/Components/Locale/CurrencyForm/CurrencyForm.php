@@ -22,11 +22,12 @@ namespace Dravencms\AdminModule\Components\Locale\CurrencyForm;
 
 use Dravencms\Components\BaseForm\BaseForm;
 use Dravencms\Components\BaseForm\BaseFormFactory;
+use Dravencms\Components\BaseForm\Form;
 use Dravencms\Model\Locale\Entities\Currency;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
-use Nette\Application\UI\Form;
+use Nette\Security\User;
 
 /**
  * Description of CurrencyForm
@@ -44,6 +45,9 @@ class CurrencyForm extends Control
     /** @var CurrencyRepository */
     private $currencyRepository;
 
+    /** @var User */
+    private $user;
+
     /** @var Currency */
     private $currency = null;
 
@@ -55,6 +59,7 @@ class CurrencyForm extends Control
         BaseFormFactory $baseFormFactory,
         EntityManager $entityManager,
         CurrencyRepository $currencyRepository,
+        User $user,
         Currency $currency = null
     ) {
 
@@ -63,6 +68,7 @@ class CurrencyForm extends Control
         $this->baseFormFactory = $baseFormFactory;
         $this->entityManager = $entityManager;
         $this->currencyRepository = $currencyRepository;
+        $this->user = $user;
 
 
         if ($this->currency) {
@@ -81,7 +87,7 @@ class CurrencyForm extends Control
     /**
      * @return BaseForm
      */
-    protected function createComponentForm(): BaseForm
+    protected function createComponentForm(): Form
     {
         $form = $this->baseFormFactory->create();
 
@@ -121,7 +127,7 @@ class CurrencyForm extends Control
             $form->addError('Tento kod je již zabrán.');
         }
 
-        if (!$this->presenter->isAllowed('locale', 'currencyEdit')) {
+        if (!$this->user->isAllowed('locale', 'currencyEdit')) {
             $form->addError('Nemáte oprávění editovat currency.');
         }
     }

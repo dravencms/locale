@@ -26,6 +26,8 @@ use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
+use Nette\Security\User;
+use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
 
 
 /**
@@ -45,6 +47,9 @@ class LocaleGrid extends Control
     /** @var EntityManager */
     private $entityManager;
 
+    /** @var User */
+    private $user;
+
     /**
      * @var array
      */
@@ -56,11 +61,12 @@ class LocaleGrid extends Control
      * @param BaseGridFactory $baseGridFactory
      * @param EntityManager $entityManager
      */
-    public function __construct(LocaleRepository $localeRepository, BaseGridFactory $baseGridFactory, EntityManager $entityManager)
+    public function __construct(LocaleRepository $localeRepository, BaseGridFactory $baseGridFactory, EntityManager $entityManager, User $user)
     {
         $this->baseGridFactory = $baseGridFactory;
         $this->localeRepository = $localeRepository;
         $this->entityManager = $entityManager;
+        $this->user = $user;
     }
 
 
@@ -88,7 +94,7 @@ class LocaleGrid extends Control
 
         $grid->addColumnBoolean('isActive', 'Active');
 
-        if ($this->presenter->isAllowed('locale', 'edit')) {
+        if ($this->user->isAllowed('locale', 'edit')) {
 
             $grid->addAction('edit', '', 'edit')
                 ->setIcon('pencil')
@@ -96,12 +102,12 @@ class LocaleGrid extends Control
                 ->setClass('btn btn-xs btn-primary');
         }
 
-        if ($this->presenter->isAllowed('locale', 'delete')) {
+        if ($this->user->isAllowed('locale', 'delete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
                 ->setTitle('Smazat')
                 ->setClass('btn btn-xs btn-danger ajax')
-                ->setConfirm('Do you really want to delete row %s?', 'name');
+                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
 
             $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'gridGroupActionDelete'];
         }
@@ -131,12 +137,11 @@ class LocaleGrid extends Control
             $this->entityManager->remove($locale);
         }
 
-        $this->entityManager->flush();
-
-        if ($this->presenter->isAjax()) {
-            $this['grid']->reload();
-        } else {
-            $this->onDelete();
+        try {
+            $this->entityManager->flush();
+            $this->onDelete(true);
+        } catch (ForeignKeyConstraintViolationException $exception) {
+            $this->onDelete(false);
         }
     }
 

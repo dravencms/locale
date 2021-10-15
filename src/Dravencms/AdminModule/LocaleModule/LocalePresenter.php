@@ -13,6 +13,7 @@ use Dravencms\AdminModule\Components\Locale\LocaleForm\LocaleFormFactory;
 use Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGrid;
 use Dravencms\AdminModule\Components\Locale\LocaleGrid\LocaleGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
+use Dravencms\Flash;
 use Dravencms\Model\Locale\Entities\Locale;
 use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
@@ -46,9 +47,10 @@ class LocalePresenter extends SecuredPresenter
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
+     * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit(int $id): void
+    public function actionEdit(int $id = null): void
     {
         if ($id) {
             $locale = $this->localeLocaleRepository->getOneById($id);
@@ -71,7 +73,11 @@ class LocalePresenter extends SecuredPresenter
         $control = $this->localeGridFactory->create();
         $control->onDelete[] = function()
         {
-            $this->flashMessage('Locale has been successfully deleted', 'alert-success');
+            if ($success) {
+                $this->flashMessage('Locale has been successfully deleted', Flash::SUCCESS);
+            } else {
+                $this->flashMessage('Failed to delete locale, maybe it is used somewhere?', Flash::DANGER);
+            }
             $this->redirect('Locale:');
         };
         return $control;
@@ -85,7 +91,7 @@ class LocalePresenter extends SecuredPresenter
         $control = $this->localeFormFactory->create($this->localeEntity);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Locale has been successfully saved', 'alert-success');
+            $this->flashMessage('Locale has been successfully saved', Flash::SUCCESS);
             $this->redirect('Locale:');
         };
         return $control;
