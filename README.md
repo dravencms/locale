@@ -8,7 +8,7 @@ The best way to install dravencms/locale is using  [Composer](http://getcomposer
 
 
 ```sh
-$ composer require dravencms/locale:@dev
+$ composer require dravencms/locale
 ```
 
 Then you have to register extension in `config.neon`.
