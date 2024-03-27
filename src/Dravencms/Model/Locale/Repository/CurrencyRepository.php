@@ -154,4 +154,12 @@ class CurrencyRepository
     {
         return $this->currencyRepository->findBy(['isActive' => $isActive]);
     }
+
+    /**
+     * @return Currency|null
+     */
+    public function getDefault(): ?Currency
+    {
+        return $this->currencyRepository->findOneBy(['isDefault' => true]);
+    }
 }
