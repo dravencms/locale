@@ -160,7 +160,7 @@ class Currency implements ICurrency
     /**
      * @return Locale[]|ArrayCollection
      */
-    public function getLocales(): ArrayCollection
+    public function getLocales()
     {
         return $this->locales;
     }
