@@ -38,6 +38,7 @@ use Nette\Security\User;
  */
 class LocaleForm extends Control
 {
+
     /** @var BaseFormFactory */
     private $baseFormFactory;
 
@@ -91,23 +92,6 @@ class LocaleForm extends Control
         $this->countryRepository = $countryRepository;
         $this->user = $user;
 
-
-        if ($this->locale) {
-            $this['form']->setDefaults(
-                [
-                    'name' => $this->locale->getName(),
-                    'code' => $this->locale->getCode(),
-                    'decPoint' => $this->locale->getDecPoint(),
-                    'thousandsSep' => $this->locale->getThousandsSep(),
-                    'dateFormat' => $this->locale->getDateFormat(),
-                    'timeFormat' => $this->locale->getTimeFormat(),
-                    'currency' => $this->locale->getCurrency()->getId(),
-                    'country' => $this->locale->getCountry()->getId(),
-                    'isDefault' => $this->locale->isDefault(),
-                    'isActive' => $this->locale->isActive()
-                ]
-            );
-        }
     }
 
     protected function createComponentForm(): Form
@@ -153,6 +137,22 @@ class LocaleForm extends Control
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
+
+        if ($this->locale) {
+            $form->setDefaults([
+                'name' => $this->locale->getName(),
+                'code' => $this->locale->getCode(),
+                'decPoint' => $this->locale->getDecPoint(),
+                'thousandsSep' => $this->locale->getThousandsSep(),
+                'dateFormat' => $this->locale->getDateFormat(),
+                'timeFormat' => $this->locale->getTimeFormat(),
+                'currency' => $this->locale->getCurrency()->getId(),
+                'country' => $this->locale->getCountry()->getId(),
+                'isDefault' => $this->locale->isDefault(),
+                'isActive' => $this->locale->isActive(),
+            ]);
+        }
+
 
         return $form;
     }

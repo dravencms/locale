@@ -36,6 +36,7 @@ use Nette\Security\User;
  */
 class CurrencyForm extends Control
 {
+
     /** @var BaseFormFactory */
     private $baseFormFactory;
 
@@ -70,18 +71,6 @@ class CurrencyForm extends Control
         $this->currencyRepository = $currencyRepository;
         $this->user = $user;
 
-
-        if ($this->currency) {
-            $this['form']->setDefaults(
-                [
-                    'name' => $this->currency->getName(),
-                    'code' => $this->currency->getCode(),
-                    'sign' => $this->currency->getSign(),
-                    'isDefault' => $this->currency->isDefault(),
-                    'isActive' => $this->currency->isActive()
-                ]
-            );
-        }
     }
 
     /**
@@ -108,6 +97,17 @@ class CurrencyForm extends Control
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
+
+        if ($this->currency) {
+            $form->setDefaults([
+                'name' => $this->currency->getName(),
+                'code' => $this->currency->getCode(),
+                'sign' => $this->currency->getSign(),
+                'isDefault' => $this->currency->isDefault(),
+                'isActive' => $this->currency->isActive(),
+            ]);
+        }
+
 
         return $form;
     }
