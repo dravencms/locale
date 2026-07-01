@@ -82,14 +82,12 @@ class CurrencyRepository
      * @param Currency|null $ignoreCurrency
      * @return bool
      */
-    public function isNameFree(string $name, Currency $ignoreCurrency = null): bool
+    public function isNameFree(string $name, ?Currency $ignoreCurrency = null): bool
     {
         $qb = $this->currencyRepository->createQueryBuilder('c')
             ->select('c')
             ->where('c.name = :name')
-            ->setParameters([
-                'name' => $name
-            ]);
+            ->setParameter('name', $name);
 
         if ($ignoreCurrency)
         {
@@ -105,14 +103,12 @@ class CurrencyRepository
      * @param Currency|null $ignoreCurrency
      * @return bool
      */
-    public function isCodeFree(string $code, Currency $ignoreCurrency = null): bool
+    public function isCodeFree(string $code, ?Currency $ignoreCurrency = null): bool
     {
         $qb = $this->currencyRepository->createQueryBuilder('c')
             ->select('c')
             ->where('c.code = :code')
-            ->setParameters([
-                'code' => $code
-            ]);
+            ->setParameter('code', $code);
 
         if ($ignoreCurrency)
         {
@@ -128,14 +124,12 @@ class CurrencyRepository
      * @param Currency|null $ignoreCurrency
      * @return bool
      */
-    public function isSignFree(string $sign, Currency $ignoreCurrency = null): bool
+    public function isSignFree(string $sign, ?Currency $ignoreCurrency = null): bool
     {
         $qb = $this->currencyRepository->createQueryBuilder('c')
             ->select('c')
             ->where('c.sign = :sign')
-            ->setParameters([
-                'sign' => $sign
-            ]);
+            ->setParameter('sign', $sign);
 
         if ($ignoreCurrency)
         {

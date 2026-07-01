@@ -9,16 +9,16 @@ namespace Dravencms\Model\Locale\Entities;
 use Dravencms\Model\Location\Entities\Country;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Dravencms\Database\Attributes\TimestampableEntity;
 use Dravencms\Database\Attributes\Identifier;
 use Nette;
 
 /**
  * Class Locale
  * @package App\Model\Entities
- * @ORM\Entity
- * @ORM\Table(name="localeLocale")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "localeLocale")]
 class Locale implements ILocale
 {
     use Nette\SmartObject;
@@ -27,70 +27,70 @@ class Locale implements ILocale
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,unique=true,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, unique: true, nullable: false)]
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,unique=true,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, unique: true, nullable: false)]
     private $code;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,unique=true,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, unique: true, nullable: false)]
     private $languageCode;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $decPoint;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $thousandsSep;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $dateFormat;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $timeFormat;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean",nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isDefault;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean",nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isActive;
 
     /**
      * @var Currency
-     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="locales")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: "Currency", inversedBy: "locales")]
+    #[ORM\JoinColumn(name: "currency_id", referencedColumnName: "id")]
     private $currency;
 
     /**
      * @var Country
-     * @ORM\ManyToOne(targetEntity="Dravencms\Model\Location\Entities\Country")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: "Dravencms\Model\Location\Entities\Country")]
+    #[ORM\JoinColumn(name: "country_id", referencedColumnName: "id")]
     private $country;
 
     /**

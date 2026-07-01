@@ -45,7 +45,7 @@ class CurrencyPresenter extends SecuredPresenter
      * @param int|null $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit(int $id = null): void
+    public function actionEdit(?int $id = null): void
     {
         if ($id) {
             $currency = $this->localeCurrencyRepository->getOneById($id);

@@ -79,7 +79,7 @@ class LocaleForm extends Control
         CurrencyRepository $currencyRepository,
         CountryRepository $countryRepository,
         User $user,
-        Locale $locale = null
+        ?Locale $locale = null
     ) {
 
         $this->locale = $locale;

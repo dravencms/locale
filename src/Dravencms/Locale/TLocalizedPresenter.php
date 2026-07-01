@@ -10,10 +10,11 @@ namespace Dravencms\Locale;
 
 
 use Contributte\Translation\Translator;
+use Nette\Application\Attributes\Persistent;
 
 trait TLocalizedPresenter
 {
-    /** @persistent */
+    #[Persistent]
     public $locale;
 
     /** @var Translator @inject */

@@ -28,5 +28,5 @@ interface LocaleFormFactory
      * @param Locale|null $locale
      * @return LocaleForm
      */
-    public function create(Locale $locale = null): LocaleForm;
+    public function create(?Locale $locale = null): LocaleForm;
 }

@@ -16,7 +16,7 @@ class AclResourceFixtures extends AbstractFixture
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         if (!class_exists(AclResource::class)) {
             trigger_error('dravencms/user module not found, dravencms/locale module won\'t install ACL Resource', E_USER_NOTICE);

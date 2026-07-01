@@ -21,6 +21,8 @@
 
 namespace Dravencms\AdminModule\Components\Locale\CurrencyGrid;
 
+
+use Dravencms\User\Attributes\IsAllowed;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
@@ -28,7 +30,7 @@ use Dravencms\Model\Locale\Repository\CurrencyRepository;
 use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Security\User;
-use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
+use Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation;
 
 /**
  * Description of CurrencyGrid
@@ -78,7 +80,7 @@ class CurrencyGrid extends Control
     /**
      * @param string $name
      * @return Grid
-     * @throws \Ublaboo\DataGrid\Exception\DataGridException
+     * @throws \Contributte\Datagrid\Exception\DatagridException
      */
     public function createComponentGrid(string $name): Grid
     {
@@ -126,8 +128,8 @@ class CurrencyGrid extends Control
     /**
      * @param $id
      * @throws \Exception
-     * @isAllowed(locale, currencyDelete)
      */
+    #[IsAllowed('locale', 'currencyDelete')]
     public function handleDelete($id): void
     {
         $currencies = $this->currencyRepository->getById($id);

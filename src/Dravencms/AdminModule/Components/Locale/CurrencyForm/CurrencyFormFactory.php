@@ -28,5 +28,5 @@ interface CurrencyFormFactory
      * @param Currency|null $currency
      * @return CurrencyForm
      */
-    public function create(Currency $currency = null): CurrencyForm;
+    public function create(?Currency $currency = null): CurrencyForm;
 }

@@ -16,7 +16,7 @@ class LocaleFixtures extends AbstractFixture implements DependentFixtureInterfac
      * @param ObjectManager $manager
      * @throws \Exception
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $locale = new Locale($this->getReference('locale-currency-USD'), $this->getReference('location-country-US'), 'English', 'en_US', '.', ',', 'Y-m-d', 'H:i:s', true);
         $manager->persist($locale);

@@ -60,7 +60,7 @@ class CurrencyForm extends Control
         EntityManager $entityManager,
         CurrencyRepository $currencyRepository,
         User $user,
-        Currency $currency = null
+        ?Currency $currency = null
     ) {
 
         $this->currency = $currency;

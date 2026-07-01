@@ -106,14 +106,12 @@ class LocaleRepository
      * @param Locale|null $ignoreLocale
      * @return bool
      */
-    public function isNameFree(string $name, Locale $ignoreLocale = null): bool
+    public function isNameFree(string $name, ?Locale $ignoreLocale = null): bool
     {
         $qb = $this->localeRepository->createQueryBuilder('l')
             ->select('l')
             ->where('l.name = :name')
-            ->setParameters([
-                'name' => $name
-            ]);
+            ->setParameter('name', $name);
 
         if ($ignoreLocale)
         {
@@ -129,14 +127,12 @@ class LocaleRepository
      * @param Locale|null $ignoreLocale
      * @return bool
      */
-    public function isCodeFree(string $code, Locale $ignoreLocale = null): bool
+    public function isCodeFree(string $code, ?Locale $ignoreLocale = null): bool
     {
         $qb = $this->localeRepository->createQueryBuilder('l')
             ->select('l')
             ->where('l.code = :code')
-            ->setParameters([
-                'code' => $code
-            ]);
+            ->setParameter('code', $code);
 
         if ($ignoreLocale)
         {

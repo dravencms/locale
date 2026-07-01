@@ -1,7 +1,20 @@
 extensions:
     locale: Dravencms\Locale\DI\LocaleExtension
 
+services:
+    locale.localePresenter:
+        class: Dravencms\AdminModule\LocaleModule\LocalePresenter
 
-nettrine.orm.annotations:
-    mapping:
-        Dravencms\Model\Locale: %appDir%/../vendor/dravencms/locale/src/Dravencms/Model/Locale
+    locale.currencyPresenter:
+        class: Dravencms\AdminModule\LocaleModule\CurrencyPresenter
+
+
+nettrine.orm:
+    managers:
+        default:
+            mapping:
+                locale:
+                    type: attributes
+                    directories:
+                        - %appDir%/../vendor/dravencms/locale/src/Dravencms/Model/Locale
+                    namespace: Dravencms\Model\Locale

@@ -1,5 +1,5 @@
 {block #content}
-    <p n:isAllowed="locale,edit">
+    <p n:if="isAllowed('locale', 'edit')">
         <a n:href="Locale:edit" class="btn btn-primary"><i class="fa fa-plus"></i> {_"New locale"}</a>
     </p>
     {control gridLocale}

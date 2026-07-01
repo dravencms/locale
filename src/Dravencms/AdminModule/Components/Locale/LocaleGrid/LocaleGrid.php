@@ -21,13 +21,15 @@
 
 namespace Dravencms\AdminModule\Components\Locale\LocaleGrid;
 
+
+use Dravencms\User\Attributes\IsAllowed;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Security\User;
-use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
+use Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation;
 
 
 /**
@@ -73,7 +75,7 @@ class LocaleGrid extends Control
     /**
      * @param string $name
      * @return Grid
-     * @throws \Ublaboo\DataGrid\Exception\DataGridException
+     * @throws \Contributte\Datagrid\Exception\DatagridException
      */
     public function createComponentGrid(string $name): Grid
     {
@@ -127,8 +129,8 @@ class LocaleGrid extends Control
     /**
      * @param $id
      * @throws \Exception
-     * @isAllowed(locale, delete)
      */
+    #[IsAllowed('locale', 'delete')]
     public function handleDelete($id): void
     {
         $locales = $this->localeRepository->getById($id);

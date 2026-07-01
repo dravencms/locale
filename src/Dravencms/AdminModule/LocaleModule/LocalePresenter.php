@@ -50,7 +50,7 @@ class LocalePresenter extends SecuredPresenter
      * @param int|null $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit(int $id = null): void
+    public function actionEdit(?int $id = null): void
     {
         if ($id) {
             $locale = $this->localeLocaleRepository->getOneById($id);

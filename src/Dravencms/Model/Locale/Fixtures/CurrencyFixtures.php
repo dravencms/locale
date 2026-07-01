@@ -17,7 +17,7 @@ class CurrencyFixtures extends AbstractFixture implements DependentFixtureInterf
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $default = 'CZK';
         $codeToSign = [

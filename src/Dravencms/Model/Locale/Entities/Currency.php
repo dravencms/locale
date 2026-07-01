@@ -9,15 +9,15 @@ namespace Dravencms\Model\Locale\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Nette;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Dravencms\Database\Attributes\TimestampableEntity;
 use Dravencms\Database\Attributes\Identifier;
 
 /**
  * Class Currency
  * @package App\Model\Entities
- * @ORM\Entity
- * @ORM\Table(name="localeCurrency")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "localeCurrency")]
 class Currency implements ICurrency
 {
     use Nette\SmartObject;
@@ -26,38 +26,38 @@ class Currency implements ICurrency
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,unique=true,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, unique: true, nullable: false)]
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,unique=true,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, unique: true, nullable: false)]
     private $code;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,unique=true,nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, unique: true, nullable: false)]
     private $sign;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean",nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isDefault;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean",nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isActive;
 
     /**
      * @var ArrayCollection|Locale[]
-     * @ORM\OneToMany(targetEntity="Locale", mappedBy="currency",cascade={"persist"})
      */
+    #[ORM\OneToMany(targetEntity: "Locale", mappedBy: "currency", cascade: ["persist"])]
     private $locales;
 
     /**
