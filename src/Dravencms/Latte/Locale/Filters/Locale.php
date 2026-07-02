@@ -69,7 +69,7 @@ class Locale
                     return 'Včera v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                 } else {
                     if ($dateTime->format('Y') == date('Y')) {
-                        return $dateTime->format(str_replace('Y', '', $this->currentLocale->getDateFormat()) . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                        return $dateTime->format($this->getCurrentYearDateFormat() . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                     } else {
                         return $dateTime->format($this->currentLocale->getDateFormat() . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                     }
@@ -104,10 +104,10 @@ class Locale
                 } else {
                     if ($dateTimeStart->format('Y') == date('Y') && $dateTimeEnd->format('Y') == date('Y')) {
                         if ($dateTimeStart->format('m-d') == $dateTimeEnd->format('m-d')) {
-                            return $dateTimeStart->format(str_replace('Y', '', $this->currentLocale->getDateFormat()) . ' ' . str_replace(':s', '',
+                            return $dateTimeStart->format($this->getCurrentYearDateFormat() . ' ' . str_replace(':s', '',
                                     $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                         } else {
-                            return $dateTimeStart->format(str_replace('Y', '', $this->currentLocale->getDateFormat()) . ' ' . str_replace(':s', '',
+                            return $dateTimeStart->format($this->getCurrentYearDateFormat() . ' ' . str_replace(':s', '',
                                     $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format('d.m ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                         }
 
@@ -118,6 +118,16 @@ class Locale
                 }
             }
         }
+    }
+
+    private function getCurrentYearDateFormat(): string
+    {
+        $dateFormat = $this->currentLocale->getDateFormat();
+        $dateFormat = preg_replace('/^Y([.\-\/\s]+)/', '', $dateFormat);
+        $dateFormat = preg_replace('/([.\-\/\s]+)Y$/', '', $dateFormat);
+        $dateFormat = preg_replace('/([.\-\/\s]+)Y([.\-\/\s]+)/', '$1', $dateFormat);
+
+        return trim($dateFormat);
     }
 
     /**
