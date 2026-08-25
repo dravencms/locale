@@ -37,12 +37,12 @@ class AclOperationFixtures extends AbstractFixture implements DependentFixtureIn
         foreach ($operations AS $resourceName => $operationList)
         {
             /** @var AclResource $aclResource */
-            $aclResource = $this->getReference('user-acl-resource-'.$resourceName);
+            $aclResource = $this->getReference('user-acl-resource-'.$resourceName, AclResource::class);
             foreach ($operationList AS $operationName => $operationDescription)
             {
                 $aclOperation = new AclOperation($aclResource, $operationName, $operationDescription);
                 //Allow all operations to administrator group
-                $aclOperation->addGroup($this->getReference('user-group-administrator'));
+                $aclOperation->addGroup($this->getReference('user-group-administrator', \Dravencms\Model\User\Entities\Group::class));
                 $manager->persist($aclOperation);
                 $this->addReference('user-acl-operation-'.$resourceName.'-'.$operationName, $aclOperation);
             }

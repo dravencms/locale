@@ -8,6 +8,7 @@ namespace Dravencms\Model\Locale\Fixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
+use Dravencms\Model\Locale\Entities\Currency;
 use Dravencms\Model\Locale\Entities\Locale;
 
 class LocaleFixtures extends AbstractFixture implements DependentFixtureInterface
@@ -18,9 +19,9 @@ class LocaleFixtures extends AbstractFixture implements DependentFixtureInterfac
      */
     public function load(ObjectManager $manager): void
     {
-        $locale = new Locale($this->getReference('locale-currency-USD'), $this->getReference('location-country-US'), 'English', 'en_US', '.', ',', 'Y-m-d', 'H:i:s', true);
+        $locale = new Locale($this->getReference('locale-currency-USD', Currency::class), $this->getReference('location-country-US', \Dravencms\Model\Location\Entities\Country::class), 'English', 'en_US', '.', ',', 'Y-m-d', 'H:i:s', true);
         $manager->persist($locale);
-        $locale = new Locale($this->getReference('locale-currency-CZK'), $this->getReference('location-country-CZ'), 'Čeština', 'cs_CZ', ',', ' ', 'd.m.Y', 'H:i:s');
+        $locale = new Locale($this->getReference('locale-currency-CZK', Currency::class), $this->getReference('location-country-CZ', \Dravencms\Model\Location\Entities\Country::class), 'Čeština', 'cs_CZ', ',', ' ', 'd.m.Y', 'H:i:s');
         $manager->persist($locale);
         $manager->flush();
     }

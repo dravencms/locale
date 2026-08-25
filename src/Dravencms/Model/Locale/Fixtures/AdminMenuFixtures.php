@@ -27,12 +27,12 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
         // Locale
         $menu = $manager->getRepository(Menu::class);
         // Locale
-        $root = new Menu('Locale', null, 'fa-language', $this->getReference('user-acl-operation-locale-edit'), null);
+        $root = new Menu('Locale', null, 'fa-language', $this->getReference('user-acl-operation-locale-edit', \Dravencms\Model\User\Entities\AclOperation::class), null);
         $manager->persist($root);
-        $child = new Menu('Locale', ':Admin:Locale:Locale', 'fa-language', $this->getReference('user-acl-operation-locale-edit'));
+        $child = new Menu('Locale', ':Admin:Locale:Locale', 'fa-language', $this->getReference('user-acl-operation-locale-edit', \Dravencms\Model\User\Entities\AclOperation::class));
         $manager->persist($child);
         $menu->persistAsLastChildOf($child, $root);
-        $child = new Menu('Currency', ':Admin:Locale:Currency', 'fa-usd', $this->getReference('user-acl-operation-locale-currencyEdit'));
+        $child = new Menu('Currency', ':Admin:Locale:Currency', 'fa-usd', $this->getReference('user-acl-operation-locale-currencyEdit', \Dravencms\Model\User\Entities\AclOperation::class));
         $manager->persist($child);
         $menu->persistAsLastChildOf($child, $root);
         $manager->flush();
