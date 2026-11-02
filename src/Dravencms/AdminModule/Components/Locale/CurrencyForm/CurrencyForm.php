@@ -81,19 +81,19 @@ class CurrencyForm extends Control
         $form = $this->baseFormFactory->create();
 
         $form->addText('name')
-            ->setRequired('Prosím zadejte jméno.');
+            ->setRequired('locale.admin.validation.nameRequired');
 
         $form->addText('code')
-            ->setRequired('Please enter locale code.');
+            ->setRequired('locale.admin.validation.currencyCodeRequired');
 
         $form->addText('sign')
-            ->setRequired('Please enter short name.');
+            ->setRequired('locale.admin.validation.signRequired');
 
         $form->addCheckbox('isDefault');
         $form->addCheckbox('isActive');
 
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', 'locale.admin.action.save');
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
@@ -116,19 +116,19 @@ class CurrencyForm extends Control
     {
         $values = $form->getValues();
         if (!$this->currencyRepository->isNameFree($values->name, $this->currency)) {
-            $form->addError('Tento název je již zabrán.');
+            $form->addError('locale.admin.validation.nameTaken');
         }
 
         if (!$this->currencyRepository->isCodeFree($values->code, $this->currency)) {
-            $form->addError('Tento kod je již zabrán.');
+            $form->addError('locale.admin.validation.codeTaken');
         }
 
         if (!$this->currencyRepository->isSignFree($values->sign, $this->currency)) {
-            $form->addError('Tento kod je již zabrán.');
+            $form->addError('locale.admin.validation.signTaken');
         }
 
         if (!$this->user->isAllowed('locale', 'currencyEdit')) {
-            $form->addError('Nemáte oprávění editovat currency.');
+            $form->addError('locale.admin.validation.currencyForbidden');
         }
     }
 

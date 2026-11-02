@@ -38,7 +38,7 @@ class CurrencyPresenter extends SecuredPresenter
 
     public function renderDefault(): void
     {
-        $this->template->h1 = 'Currency overview';
+        $this->template->h1 = $this->translator->translate('locale.admin.title.currencies');
     }
 
     /**
@@ -54,9 +54,9 @@ class CurrencyPresenter extends SecuredPresenter
             }
 
             $this->currencyEntity = $currency;
-            $this->template->h1 = sprintf('Currency „%s“', $currency->getName());
+            $this->template->h1 = $this->translator->translate('locale.admin.title.editCurrency', ['name' => $currency->getName()]);
         } else {
-            $this->template->h1 = 'New currency';
+            $this->template->h1 = $this->translator->translate('locale.admin.title.newCurrency');
         }
     }
 
@@ -69,9 +69,9 @@ class CurrencyPresenter extends SecuredPresenter
         $control->onDelete[] = function($success)
         {
             if ($success) {
-                $this->flashMessage('Currency has been successfully deleted', Flash::SUCCESS);
+                $this->flashMessage($this->translator->translate('locale.admin.flash.currencyDeleted'), Flash::SUCCESS);
             } else {
-                $this->flashMessage('Failed to delete currency, maybe it is used somewhere?', Flash::DANGER);
+                $this->flashMessage($this->translator->translate('locale.admin.flash.currencyDeleteFailed'), Flash::DANGER);
             }
 
             $this->redirect('Currency:');
@@ -87,7 +87,7 @@ class CurrencyPresenter extends SecuredPresenter
         $control = $this->currencyFormFactory->create($this->currencyEntity);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Currency has been successfully saved', Flash::SUCCESS);
+            $this->flashMessage($this->translator->translate('locale.admin.flash.currencySaved'), Flash::SUCCESS);
             $this->redirect('Currency:');
         };
         return $control;

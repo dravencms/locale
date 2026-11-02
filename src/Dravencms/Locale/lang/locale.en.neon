@@ -1,0 +1,50 @@
+admin:
+    field:
+        name: Name
+        code: Code
+        sign: Symbol
+        default: Default
+        active: Active
+        flag: Flag
+        space: '[space]'
+        decimalPoint: Decimal separator
+        thousandsSeparator: Thousands separator
+        dateFormat: Date format
+        timeFormat: Time format
+        currency: Currency
+        country: Country
+    action:
+        save: Save
+        edit: Edit
+        delete: Delete
+    title:
+        locales: Locales
+        currencies: Currencies
+        newLocale: New locale
+        newCurrency: New currency
+        editLocale: 'Locale "%name%"'
+        editCurrency: 'Currency "%name%"'
+    validation:
+        nameRequired: Please enter a name.
+        localeCodeRequired: Please enter a locale code.
+        currencyCodeRequired: Please enter a currency code.
+        signRequired: Please enter a currency symbol.
+        decimalPointRequired: Please select a decimal separator.
+        thousandsSeparatorRequired: Please select a thousands separator.
+        dateFormatRequired: Please enter a date format.
+        timeFormatRequired: Please enter a time format.
+        nameTaken: This name is already in use.
+        codeTaken: This code is already in use.
+        signTaken: This currency symbol is already in use.
+        localeForbidden: You do not have permission to edit locales.
+        currencyForbidden: You do not have permission to edit currencies.
+        localeCodeInvalid: 'The code must contain a language and country separated by an underscore, for example en_US.'
+    confirm:
+        delete: 'Are you sure you want to delete "%s"?'
+    flash:
+        localeDeleted: The locale has been deleted.
+        localeDeleteFailed: The locale could not be deleted. It may be in use elsewhere in the system.
+        localeSaved: The locale has been saved.
+        currencyDeleted: The currency has been deleted.
+        currencyDeleteFailed: The currency could not be deleted. It may be in use elsewhere in the system.
+        currencySaved: The currency has been saved.

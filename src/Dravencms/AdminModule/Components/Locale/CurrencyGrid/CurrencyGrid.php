@@ -89,37 +89,37 @@ class CurrencyGrid extends Control
 
         $grid->setDataSource($this->currencyRepository->getCurrencyQueryBuilder());
 
-        $grid->addColumnText('name', 'Name')
+        $grid->addColumnText('name', 'locale.admin.field.name')
             ->setSortable()
             ->setFilterText();
 
-        $grid->addColumnText('sign', 'Sign')
+        $grid->addColumnText('sign', 'locale.admin.field.sign')
             ->setSortable()
             ->setFilterText();
 
-        $grid->addColumnText('code', 'Code')
+        $grid->addColumnText('code', 'locale.admin.field.code')
             ->setSortable()
             ->setFilterText();
 
-        $grid->addColumnBoolean('isDefault', 'Default');
+        $grid->addColumnBoolean('isDefault', 'locale.admin.field.default');
 
-        $grid->addColumnBoolean('isActive', 'Active');
+        $grid->addColumnBoolean('isActive', 'locale.admin.field.active');
 
         if ($this->user->isAllowed('locale', 'currencyEdit')) {
             $grid->addAction('edit', '')
                 ->setIcon('pencil')
-                ->setTitle('Upravit')
+                ->setTitle('locale.admin.action.edit')
                 ->setClass('btn btn-sm btn-primary');
         }
 
         if ($this->user->isAllowed('locale', 'currencyDelete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
-                ->setTitle('Smazat')
+                ->setTitle('locale.admin.action.delete')
                 ->setClass('btn btn-sm btn-danger ajax')
-                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
+                ->setConfirmation(new StringConfirmation('locale.admin.confirm.delete', 'name'));
 
-            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'gridGroupActionDelete'];
+            $grid->addGroupAction('locale.admin.action.delete')->onSelect[] = [$this, 'gridGroupActionDelete'];
         }
 
         return $grid;

@@ -6,13 +6,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="name">{_"Name"}</label>
+                    <label class="form-label" n:name="name">{_'locale.admin.field.name'}</label>
                     <input type="text" n:name="name" autofocus="autofocus" class="form-control">
                 </div>
             </div><!-- col-sm-6 -->
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="code">{_"Code"}</label>
+                    <label class="form-label" n:name="code">{_'locale.admin.field.code'}</label>
                     <input type="text" n:name="code" class="form-control">
                 </div>
             </div><!-- col-sm-6 -->
@@ -21,13 +21,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="decPoint">{_"Decimal point"}</label>
+                    <label class="form-label" n:name="decPoint">{_'locale.admin.field.decimalPoint'}</label>
                     <select n:name="decPoint" class="form-control"></select>
                 </div>
             </div><!-- col-sm-6 -->
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="thousandsSep">{_"Thousands separator"}</label>
+                    <label class="form-label" n:name="thousandsSep">{_'locale.admin.field.thousandsSeparator'}</label>
                     <select n:name="thousandsSep" class="form-control"></select>
                 </div>
             </div><!-- col-sm-6 -->
@@ -36,13 +36,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="dateFormat">{_"Date format"}</label>
+                    <label class="form-label" n:name="dateFormat">{_'locale.admin.field.dateFormat'}</label>
                     <input n:name="dateFormat" class="form-control">
                 </div>
             </div><!-- col-sm-6 -->
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="timeFormat">{_"Time format"}</label>
+                    <label class="form-label" n:name="timeFormat">{_'locale.admin.field.timeFormat'}</label>
                     <input n:name="timeFormat" class="form-control">
                 </div>
             </div><!-- col-sm-12 -->
@@ -51,13 +51,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="currency">{_"Currency"}</label>
+                    <label class="form-label" n:name="currency">{_'locale.admin.field.currency'}</label>
                     <select type="text" n:name="currency" class="form-control"></select>
                 </div>
             </div><!-- col-sm-6 -->
             <div class="col-sm-6">
                 <div class="mb-3">
-                    <label class="form-label" n:name="country">{_"Country"}</label>
+                    <label class="form-label" n:name="country">{_'locale.admin.field.country'}</label>
                     <select type="text" n:name="country" class="form-control"></select>
                 </div>
             </div><!-- col-sm-6 -->
@@ -67,7 +67,7 @@
             <div class="col-sm-12">
                 <div class="form-check">
                     <label>
-                        <input type="checkbox" n:name="isDefault" class="form-check-input"> <span class="form-check-label">{_"Default"}</span>
+                        <input type="checkbox" n:name="isDefault" class="form-check-input"> <span class="form-check-label">{_'locale.admin.field.default'}</span>
                     </label>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             <div class="col-sm-12">
                 <div class="form-check">
                     <label>
-                        <input type="checkbox" n:name="isActive" class="form-check-input"> <span class="form-check-label">{_"Active"}</span>
+                        <input type="checkbox" n:name="isActive" class="form-check-input"> <span class="form-check-label">{_'locale.admin.field.active'}</span>
                     </label>
                 </div>
             </div>
@@ -84,6 +84,6 @@
     </div>
 
     <div class="card-footer">
-        <input type="submit" n:name="send" class="btn btn-success button" value="{_"Save"}">
+        <input type="submit" n:name="send" class="btn btn-success button" value="{_'locale.admin.action.save'}">
     </div>
 </form>

@@ -99,14 +99,14 @@ class LocaleForm extends Control
         $form = $this->baseFormFactory->create();
 
         $form->addText('name')
-            ->setRequired('Prosím zadejte jméno.');
+            ->setRequired('locale.admin.validation.nameRequired');
 
         $form->addText('code')
-            ->setRequired('Please enter locale code.');
+            ->setRequired('locale.admin.validation.localeCodeRequired');
 
 
         $charList = [
-            ' ' => '[space]',
+            ' ' => 'locale.admin.field.space',
             ',' => ',',
             '.' => '.',
             '\'' => '\'',
@@ -114,16 +114,16 @@ class LocaleForm extends Control
         ];
 
         $form->addSelect('decPoint', null, $charList)
-            ->setRequired('Please enter locale decimal point.');
+            ->setRequired('locale.admin.validation.decimalPointRequired');
 
         $form->addSelect('thousandsSep', null, $charList)
-            ->setRequired('Please enter locale thousands separator.');
+            ->setRequired('locale.admin.validation.thousandsSeparatorRequired');
 
         $form->addText('dateFormat')
-            ->setRequired('Please enter locale date format.');
+            ->setRequired('locale.admin.validation.dateFormatRequired');
 
         $form->addText('timeFormat')
-            ->setRequired('Please enter locale time format.');
+            ->setRequired('locale.admin.validation.timeFormatRequired');
 
         $form->addSelect('country', null, $this->countryRepository->getPairs());
 
@@ -133,7 +133,7 @@ class LocaleForm extends Control
         $form->addCheckbox('isActive');
 
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', 'locale.admin.action.save');
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
@@ -161,21 +161,21 @@ class LocaleForm extends Control
     {
         $values = $form->getValues();
         if (!$this->localeRepository->isNameFree($values->name, $this->locale)) {
-            $form->addError('Tento název je již zabrán.');
+            $form->addError('locale.admin.validation.nameTaken');
         }
 
         if (!$this->localeRepository->isCodeFree($values->code, $this->locale)) {
-            $form->addError('Tento kod je již zabrán.');
+            $form->addError('locale.admin.validation.codeTaken');
         }
 
         if (!$this->user->isAllowed('locale', 'edit')) {
-            $form->addError('Nemáte oprávění editovat locale.');
+            $form->addError('locale.admin.validation.localeForbidden');
         }
 
         $exploded = explode('_', $values->code);
         if (count($exploded) != 2)
         {
-            $form->addError('Code has wrong format, it must be in [language_code[_country_code]] eg.: (en_US)');
+            $form->addError('locale.admin.validation.localeCodeInvalid');
         }
     }
 

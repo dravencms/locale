@@ -1,6 +1,6 @@
 {block #content}
     <p n:if="isAllowed('locale', 'currencyEdit')">
-        <a n:href="Currency:edit" class="btn btn-primary"><i class="fa fa-plus"></i> {_"New currency"}</a>
+        <a n:href="Currency:edit" class="btn btn-primary"><i class="fa fa-plus"></i> {_'locale.admin.title.newCurrency'}</a>
     </p>
     {control gridCurrency}
 {/block}

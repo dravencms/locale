@@ -2,6 +2,7 @@
 
 namespace Dravencms\Locale\DI;
 
+use Contributte\Translation\DI\TranslationProviderInterface;
 use Dravencms\Latte\Locale\Filters\Locale;
 use Dravencms\Locale\CurrentCurrencyResolver;
 use Dravencms\Locale\CurrentLocaleResolver;
@@ -12,8 +13,13 @@ use Nette\DI\CompilerExtension;
  * Class LocaleExtension
  * @package Dravencms\Locale\DI
  */
-class LocaleExtension extends CompilerExtension
+class LocaleExtension extends CompilerExtension implements TranslationProviderInterface
 {
+    public function getTranslationResources(): array
+    {
+        return [__DIR__ . '/../lang'];
+    }
+
     public function loadConfiguration(): void
     {
         $builder = $this->getContainerBuilder();

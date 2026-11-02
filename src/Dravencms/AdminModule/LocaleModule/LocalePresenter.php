@@ -43,7 +43,7 @@ class LocalePresenter extends SecuredPresenter
 
     public function renderDefault(): void
     {
-        $this->template->h1 = 'Locale overview';
+        $this->template->h1 = $this->translator->translate('locale.admin.title.locales');
     }
 
     /**
@@ -57,11 +57,11 @@ class LocalePresenter extends SecuredPresenter
             if (!$locale) {
                 $this->error();
             }
-            $this->template->h1 = sprintf('Locale „%s“', $locale->getName());
+            $this->template->h1 = $this->translator->translate('locale.admin.title.editLocale', ['name' => $locale->getName()]);
 
             $this->localeEntity = $locale;
         } else {
-            $this->template->h1 = 'New locale';
+            $this->template->h1 = $this->translator->translate('locale.admin.title.newLocale');
         }
     }
 
@@ -71,12 +71,12 @@ class LocalePresenter extends SecuredPresenter
     public function createComponentGridLocale(): LocaleGrid
     {
         $control = $this->localeGridFactory->create();
-        $control->onDelete[] = function()
+        $control->onDelete[] = function($success)
         {
             if ($success) {
-                $this->flashMessage('Locale has been successfully deleted', Flash::SUCCESS);
+                $this->flashMessage($this->translator->translate('locale.admin.flash.localeDeleted'), Flash::SUCCESS);
             } else {
-                $this->flashMessage('Failed to delete locale, maybe it is used somewhere?', Flash::DANGER);
+                $this->flashMessage($this->translator->translate('locale.admin.flash.localeDeleteFailed'), Flash::DANGER);
             }
             $this->redirect('Locale:');
         };
@@ -91,7 +91,7 @@ class LocalePresenter extends SecuredPresenter
         $control = $this->localeFormFactory->create($this->localeEntity);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Locale has been successfully saved', Flash::SUCCESS);
+            $this->flashMessage($this->translator->translate('locale.admin.flash.localeSaved'), Flash::SUCCESS);
             $this->redirect('Locale:');
         };
         return $control;

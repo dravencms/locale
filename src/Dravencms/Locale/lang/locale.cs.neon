@@ -1,0 +1,50 @@
+admin:
+    field:
+        name: Název
+        code: Kód
+        sign: Symbol
+        default: Výchozí
+        active: Aktivní
+        flag: Vlajka
+        space: '[mezera]'
+        decimalPoint: Desetinný oddělovač
+        thousandsSeparator: Oddělovač tisíců
+        dateFormat: Formát data
+        timeFormat: Formát času
+        currency: Měna
+        country: Země
+    action:
+        save: Uložit
+        edit: Upravit
+        delete: Smazat
+    title:
+        locales: Jazyková nastavení
+        currencies: Měny
+        newLocale: Nové jazykové nastavení
+        newCurrency: Nová měna
+        editLocale: 'Jazykové nastavení "%name%"'
+        editCurrency: 'Měna "%name%"'
+    validation:
+        nameRequired: Zadejte prosím název.
+        localeCodeRequired: Zadejte prosím kód jazyka a země.
+        currencyCodeRequired: Zadejte prosím kód měny.
+        signRequired: Zadejte prosím symbol měny.
+        decimalPointRequired: Vyberte prosím desetinný oddělovač.
+        thousandsSeparatorRequired: Vyberte prosím oddělovač tisíců.
+        dateFormatRequired: Zadejte prosím formát data.
+        timeFormatRequired: Zadejte prosím formát času.
+        nameTaken: Tento název je již používán.
+        codeTaken: Tento kód je již používán.
+        signTaken: Tento symbol měny je již používán.
+        localeForbidden: Nemáte oprávnění upravovat jazyková nastavení.
+        currencyForbidden: Nemáte oprávnění upravovat měny.
+        localeCodeInvalid: 'Kód musí obsahovat jazyk a zemi oddělené podtržítkem, například en_US.'
+    confirm:
+        delete: 'Opravdu chcete smazat záznam "%s"?'
+    flash:
+        localeDeleted: Jazykové nastavení bylo smazáno.
+        localeDeleteFailed: Jazykové nastavení nelze smazat. Může být používáno jinou částí systému.
+        localeSaved: Jazykové nastavení bylo uloženo.
+        currencyDeleted: Měna byla smazána.
+        currencyDeleteFailed: Měnu nelze smazat. Může být používána jinou částí systému.
+        currencySaved: Měna byla uložena.
