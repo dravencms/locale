@@ -21,7 +21,10 @@
     "dravencms/base-form": ">=0.0.1",
     "dravencms/base-grid": ">=0.0.1",
     "dravencms/translation": ">=v1.0",
-    "dravencms/location": ">=v1.1"
+    "dravencms/location": "^1.7",
+    "php": ">=8.2",
+    "symfony/console": "^6.4 || ^7.0 || ^8.0",
+    "composer-runtime-api": "^2.0"
   },
   "suggest": {
     "dravencms/admin": "Provides admin inteface to manage locales",

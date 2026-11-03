@@ -41,3 +41,9 @@ Inject `CurrentLocaleResolver` or `CurrentCurrencyResolver` in services that nee
 ## License
 
 This package is licensed under the LGPL-3.0 license.
+
+## Installing default data
+
+Run `php bin/console locale:setup` after creating or migrating the application schema. The command adds missing defaults in a transaction and can be rerun on an active project. It never purges data or updates existing records, including customized names, formats, templates, active flags and default selections. Run setup commands one at a time. Schema creation/migration remains separate. Fixtures are no longer registered.
+
+Ensures countries first, then adds CZK, USD and EUR plus en_US and cs_CZ. Existing locales with the same language code are retained instead of adding a conflicting regional variant. CZK and en_US are selected as defaults only when their respective tables have no default; existing records are never changed to become defaults.
