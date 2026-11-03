@@ -39,5 +39,8 @@
     "dravencms": {
       "configuration": "dravencms.config.neon"
     }
+  },
+  "conflict": {
+    "dravencms/admin": "<3.0"
   }
 }

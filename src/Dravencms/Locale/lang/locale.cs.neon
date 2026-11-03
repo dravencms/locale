@@ -56,3 +56,8 @@ date:
     today: 'Dnes'
     tomorrow: 'Zítra'
     yesterday: 'Včera'
+
+menu:
+    root: 'Jazyky a měny'
+    locales: 'Jazyky'
+    currencies: 'Měny'

@@ -56,3 +56,8 @@ date:
     today: 'Today'
     tomorrow: 'Tomorrow'
     yesterday: 'Yesterday'
+
+menu:
+    root: 'Locales and currencies'
+    locales: 'Locales'
+    currencies: 'Currencies'
