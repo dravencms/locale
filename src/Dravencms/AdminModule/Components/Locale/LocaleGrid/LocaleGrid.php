@@ -27,7 +27,7 @@ use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Database\EntityManager;
-use Nette\Application\UI\Control;
+use Dravencms\Components\BaseControl\BaseControl as Control;
 use Nette\Security\User;
 use Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation;
 
