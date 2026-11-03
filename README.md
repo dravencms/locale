@@ -9,7 +9,7 @@ Locale and currency management for multilingual DravenCMS applications. The pack
 - Current locale and currency resolvers.
 - Frontend locale switcher component.
 - Latte formatting filters.
-- Optional admin screens and ACL fixtures.
+- Optional admin screens and provider-defined ACL permissions.
 
 ## Installation
 
@@ -17,7 +17,7 @@ Locale and currency management for multilingual DravenCMS applications. The pack
 composer require dravencms/locale
 ```
 
-Apply the Doctrine schema and load fixtures so the application has at least one active default locale and currency. `CurrentLocaleResolver` throws when no default locale is available.
+Apply the Doctrine schema and run `php bin/console locale:setup` so a new application has an active default locale and currency. `CurrentLocaleResolver` throws when no default locale is available.
 
 Install `dravencms/admin` for management screens and `dravencms/user` for user/ACL integration.
 
