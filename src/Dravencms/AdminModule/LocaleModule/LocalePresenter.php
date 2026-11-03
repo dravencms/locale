@@ -23,6 +23,7 @@ use Dravencms\Model\Locale\Repository\LocaleRepository;
  *
  * @author Adam Schubert
  */
+#[\Dravencms\User\Attributes\IsAllowed('locale', 'edit')]
 class LocalePresenter extends SecuredPresenter
 {
     /** @var LocaleRepository @inject */
@@ -41,6 +42,7 @@ class LocalePresenter extends SecuredPresenter
     private $localeEntity = null;
 
 
+    #[\Dravencms\User\Attributes\IsAllowed('locale', 'edit')]
     public function renderDefault(): void
     {
         $this->template->h1 = $this->translator->translate('locale.admin.title.locales');
@@ -50,6 +52,7 @@ class LocalePresenter extends SecuredPresenter
      * @param int|null $id
      * @throws \Nette\Application\BadRequestException
      */
+    #[\Dravencms\User\Attributes\IsAllowed('locale', 'edit')]
     public function actionEdit(?int $id = null): void
     {
         if ($id) {

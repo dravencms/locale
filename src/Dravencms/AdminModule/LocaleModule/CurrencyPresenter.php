@@ -22,6 +22,7 @@ use Dravencms\Model\Locale\Repository\CurrencyRepository;
  *
  * @author Adam Schubert
  */
+#[\Dravencms\User\Attributes\IsAllowed('locale', 'currencyEdit')]
 class CurrencyPresenter extends SecuredPresenter
 {
     /** @var CurrencyRepository @inject */
@@ -36,6 +37,7 @@ class CurrencyPresenter extends SecuredPresenter
     /** @var Currency */
     private $currencyEntity = null;
 
+    #[\Dravencms\User\Attributes\IsAllowed('locale', 'currencyEdit')]
     public function renderDefault(): void
     {
         $this->template->h1 = $this->translator->translate('locale.admin.title.currencies');
@@ -45,6 +47,7 @@ class CurrencyPresenter extends SecuredPresenter
      * @param int|null $id
      * @throws \Nette\Application\BadRequestException
      */
+    #[\Dravencms\User\Attributes\IsAllowed('locale', 'currencyEdit')]
     public function actionEdit(?int $id = null): void
     {
         if ($id) {

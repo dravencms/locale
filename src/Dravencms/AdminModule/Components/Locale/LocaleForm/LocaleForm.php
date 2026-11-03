@@ -181,6 +181,7 @@ class LocaleForm extends Control
 
     public function editFormSucceeded(Form $form): void
     {
+        $this->requirePermission('locale', 'edit');
         $values = $form->getValues();
 
         $currency = $this->currencyRepository->getOneById($values->currency);

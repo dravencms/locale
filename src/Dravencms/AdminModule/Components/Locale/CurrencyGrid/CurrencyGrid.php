@@ -86,6 +86,7 @@ class CurrencyGrid extends Control
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
+        $grid->setWritePermission('locale', 'currencyEdit');
 
         $grid->setDataSource($this->currencyRepository->getCurrencyQueryBuilder());
 
@@ -129,9 +130,11 @@ class CurrencyGrid extends Control
      * @param $id
      * @throws \Exception
      */
-    #[IsAllowed('locale', 'currencyDelete')]
+    #[\Dravencms\User\Attributes\IsAllowed('locale', 'currencyDelete')]
+    #[\Dravencms\Security\Mutation]
     public function handleDelete($id): void
     {
+        $this->requirePermission('locale', 'currencyDelete');
         $currencies = $this->currencyRepository->getById($id);
         foreach ($currencies AS $currency)
         {

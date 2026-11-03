@@ -81,6 +81,7 @@ class LocaleGrid extends Control
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
+        $grid->setWritePermission('locale', 'edit');
 
         $grid->setDataSource($this->localeRepository->getLocaleQueryBuilder());
 
@@ -130,9 +131,11 @@ class LocaleGrid extends Control
      * @param $id
      * @throws \Exception
      */
-    #[IsAllowed('locale', 'delete')]
+    #[\Dravencms\User\Attributes\IsAllowed('locale', 'delete')]
+    #[\Dravencms\Security\Mutation]
     public function handleDelete($id): void
     {
+        $this->requirePermission('locale', 'delete');
         $locales = $this->localeRepository->getById($id);
         foreach ($locales AS $locale)
         {

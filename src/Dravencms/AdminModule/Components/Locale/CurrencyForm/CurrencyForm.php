@@ -134,6 +134,7 @@ class CurrencyForm extends Control
 
     public function editFormSucceeded(Form $form): void
     {
+        $this->requirePermission('locale', 'currencyEdit');
         $values = $form->getValues();
 
 
