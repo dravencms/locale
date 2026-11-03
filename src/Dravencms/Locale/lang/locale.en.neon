@@ -48,3 +48,11 @@ admin:
         currencyDeleted: The currency has been deleted.
         currencyDeleteFailed: The currency could not be deleted. It may be in use elsewhere in the system.
         currencySaved: The currency has been saved.
+
+date:
+    todayAt: 'Today at'
+    tomorrowAt: 'Tomorrow at'
+    yesterdayAt: 'Yesterday at'
+    today: 'Today'
+    tomorrow: 'Tomorrow'
+    yesterday: 'Yesterday'

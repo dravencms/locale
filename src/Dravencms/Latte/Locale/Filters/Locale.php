@@ -9,6 +9,7 @@ use Dravencms\Locale\CurrentCurrencyResolver;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Locale\Inflection\Czech;
 use Dravencms\Model\Locale\Entities\ILocale;
+use Nette\Localization\Translator;
 
 /**
  * Class Locale
@@ -24,7 +25,8 @@ class Locale
 
     public function __construct(
         CurrentLocaleResolver $currentLocaleResolver,
-        CurrentCurrencyResolver $currentCurrencyResolver
+        CurrentCurrencyResolver $currentCurrencyResolver,
+        private ?Translator $translator = null
     )
     {
         $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
@@ -60,13 +62,13 @@ class Locale
         $tomorrow = new \DateTime('+1 day');
         $yesterday = new \DateTime('-1 day');
         if ($dateTime->format('Y-m-d') == $now->format('Y-m-d')) {
-            return 'Dnes v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+            return $this->relativeDateLabel('todayAt', $dateTime) . ' ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
         } else {
             if ($dateTime->format('Y-m-d') == $tomorrow->format('Y-m-d')) {
-                return 'Zítra v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                return $this->relativeDateLabel('tomorrowAt', $dateTime) . ' ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
             } else {
                 if ($dateTime->format('Y-m-d') == $yesterday->format('Y-m-d')) {
-                    return 'Včera v ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                    return $this->relativeDateLabel('yesterdayAt', $dateTime) . ' ' . $dateTime->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                 } else {
                     if ($dateTime->format('Y') == date('Y')) {
                         return $dateTime->format($this->getCurrentYearDateFormat() . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
@@ -92,14 +94,14 @@ class Locale
 
 
         if ($dateTimeStart->format('Y-m-d') == $now->format('Y-m-d') && $dateTimeEnd->format('Y-m-d') == $now->format('Y-m-d')) {
-            return 'Dnes ' . $dateTimeStart->format(str_replace(':s', '', $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+            return $this->relativeDateLabel('today', $dateTimeStart) . ' ' . $dateTimeStart->format(str_replace(':s', '', $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
         } else {
             if ($dateTimeStart->format('Y-m-d') == $tomorrow->format('Y-m-d') && $dateTimeEnd->format('Y-m-d') == $tomorrow->format('Y-m-d')) {
-                return 'Zítra ' . $dateTimeStart->format(str_replace(':s', '', $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '',
+                return $this->relativeDateLabel('tomorrow', $dateTimeStart) . ' ' . $dateTimeStart->format(str_replace(':s', '', $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '',
                     $this->currentLocale->getTimeFormat()));
             } else {
                 if ($dateTimeStart->format('Y-m-d') == $yesterday->format('Y-m-d') && $dateTimeEnd->format('Y-m-d') == $yesterday->format('Y-m-d')) {
-                    return 'Včera ' . $dateTimeStart->format(str_replace(':s', '', $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '',
+                    return $this->relativeDateLabel('yesterday', $dateTimeStart) . ' ' . $dateTimeStart->format(str_replace(':s', '', $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '',
                         $this->currentLocale->getTimeFormat()));
                 } else {
                     if ($dateTimeStart->format('Y') == date('Y') && $dateTimeEnd->format('Y') == date('Y')) {
@@ -108,16 +110,24 @@ class Locale
                                     $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format(str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                         } else {
                             return $dateTimeStart->format($this->getCurrentYearDateFormat() . ' ' . str_replace(':s', '',
-                                    $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format('d.m ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                                    $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format($this->getCurrentYearDateFormat() . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                         }
 
                     } else {
-                        return $dateTimeStart->format($this->currentLocale->getDateFormat() . str_replace(':s', '',
-                                $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format('d.m.Y ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
+                        return $dateTimeStart->format($this->currentLocale->getDateFormat() . ' ' . str_replace(':s', '',
+                                $this->currentLocale->getTimeFormat())) . ' - ' . $dateTimeEnd->format($this->currentLocale->getDateFormat() . ' ' . str_replace(':s', '', $this->currentLocale->getTimeFormat()));
                     }
                 }
             }
         }
+    }
+
+    private function relativeDateLabel(string $key, \DateTimeInterface $dateTime): string
+    {
+        // The filters can also be constructed without a translation service.
+        return $this->translator !== null
+            ? (string) $this->translator->translate('locale.date.' . $key)
+            : $dateTime->format($this->currentLocale->getDateFormat());
     }
 
     private function getCurrentYearDateFormat(): string

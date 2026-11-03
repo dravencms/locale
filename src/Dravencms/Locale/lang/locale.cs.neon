@@ -48,3 +48,11 @@ admin:
         currencyDeleted: Měna byla smazána.
         currencyDeleteFailed: Měnu nelze smazat. Může být používána jinou částí systému.
         currencySaved: Měna byla uložena.
+
+date:
+    todayAt: 'Dnes v'
+    tomorrowAt: 'Zítra v'
+    yesterdayAt: 'Včera v'
+    today: 'Dnes'
+    tomorrow: 'Zítra'
+    yesterday: 'Včera'
