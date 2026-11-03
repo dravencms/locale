@@ -61,3 +61,15 @@ menu:
     root: 'Jazyky a měny'
     locales: 'Jazyky'
     currencies: 'Měny'
+
+acl:
+    resource: 'Jazyky a měny'
+    permissions:
+        edit:
+            label: 'Spravovat jazyky'
+        delete:
+            label: 'Mazat jazyky'
+        currencyEdit:
+            label: 'Spravovat měny'
+        currencyDelete:
+            label: 'Mazat měny'

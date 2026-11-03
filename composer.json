@@ -41,6 +41,7 @@
     }
   },
   "conflict": {
-    "dravencms/admin": "<3.0"
+    "dravencms/admin": "<3.0",
+    "dravencms/user": "<3.0"
   }
 }

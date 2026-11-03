@@ -23,6 +23,9 @@ class LocaleExtension extends CompilerExtension implements TranslationProviderIn
     public function loadConfiguration(): void
     {
         $builder = $this->getContainerBuilder();
+        if ($this->compiler->getExtensions(\Dravencms\User\DI\UserExtension::class) !== []) {
+            $builder->addDefinition($this->prefix('aclProvider'))->setFactory(\Dravencms\Locale\AclProvider::class);
+        }
         if ($this->compiler->getExtensions(\Dravencms\Admin\DI\AdminExtension::class) !== []) {
             $builder->addDefinition($this->prefix('adminMenuProvider'))->setFactory(\Dravencms\Locale\AdminMenuProvider::class);
         }

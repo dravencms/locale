@@ -61,3 +61,15 @@ menu:
     root: 'Locales and currencies'
     locales: 'Locales'
     currencies: 'Currencies'
+
+acl:
+    resource: 'Locales and currencies'
+    permissions:
+        edit:
+            label: 'Manage locales'
+        delete:
+            label: 'Delete locales'
+        currencyEdit:
+            label: 'Manage currencies'
+        currencyDelete:
+            label: 'Delete currencies'

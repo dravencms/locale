@@ -1,7 +1,5 @@
 - Dravencms\Model\Locale\Repository\LocaleRepository
 - Dravencms\Model\Locale\Repository\CurrencyRepository
 
-- Dravencms\Model\Locale\Fixtures\AclResourceFixtures
-- Dravencms\Model\Locale\Fixtures\AclOperationFixtures
 - Dravencms\Model\Locale\Fixtures\LocaleFixtures
 - Dravencms\Model\Locale\Fixtures\CurrencyFixtures

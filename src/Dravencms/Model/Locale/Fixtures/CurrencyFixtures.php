@@ -45,6 +45,6 @@ class CurrencyFixtures extends AbstractFixture implements DependentFixtureInterf
      */
     public function getDependencies(): array
     {
-        return ['Dravencms\Model\Locale\Fixtures\AclOperationFixtures'];
+        return [];
     }
 }
